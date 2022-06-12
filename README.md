@@ -2,6 +2,11 @@
 
 A Library for ArcaeaUnlimitedAPI with C#.
 
+## Install
+```shell
+dotnet add package ArcaeaUnlimitedAPI.Lib
+```
+
 ## Usage
 ```csharp
 using ArcaeaUnlimitedAPI.Lib;
