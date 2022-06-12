@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcaeaUnlimitedAPI.Lib", "ArcaeaUnlimitedAPI.Lib\ArcaeaUnlimitedAPI.Lib.csproj", "{D3A220B7-7DB5-4A60-A3A7-F8DD97EDFDFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcaeaUnlimitedAPI.Lib.Test", "ArcaeaUnlimitedAPI.Lib.Test\ArcaeaUnlimitedAPI.Lib.Test.csproj", "{D6E2BCE4-E4B4-4343-976B-6CC120762428}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3A220B7-7DB5-4A60-A3A7-F8DD97EDFDFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3A220B7-7DB5-4A60-A3A7-F8DD97EDFDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3A220B7-7DB5-4A60-A3A7-F8DD97EDFDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3A220B7-7DB5-4A60-A3A7-F8DD97EDFDFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E2BCE4-E4B4-4343-976B-6CC120762428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E2BCE4-E4B4-4343-976B-6CC120762428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E2BCE4-E4B4-4343-976B-6CC120762428}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E2BCE4-E4B4-4343-976B-6CC120762428}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
