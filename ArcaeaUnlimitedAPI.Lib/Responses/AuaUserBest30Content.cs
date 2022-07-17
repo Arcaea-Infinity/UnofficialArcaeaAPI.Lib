@@ -20,4 +20,8 @@ public class AuaUserBest30Content
     [JsonPropertyName("recent_score")] public AuaRecord? RecentScore { get; set; }
     
     [JsonPropertyName("recent_songinfo")] public AuaChartInfo? RecentSongInfo { get; set; }
+    
+    [JsonPropertyName("best30_overflow")] public AuaRecord[]? Best30Overflow { get; set; }
+    
+    [JsonPropertyName("best30_overflow_songinfo")] public AuaChartInfo[]? Best30OverflowSongInfo { get; set; }
 }

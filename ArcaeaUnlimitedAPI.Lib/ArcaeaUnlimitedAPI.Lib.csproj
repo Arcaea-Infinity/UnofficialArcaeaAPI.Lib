@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <Title>ArcaeaUnlimitedAPI.Lib</Title>
+        <Authors>b1acksoil</Authors>
+        <PackageVersion>1.0.1</PackageVersion>
+        <Description>Lib for ArcaeaUnlimitedAPI.</Description>
+
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Title>ArcaeaUnlimitedAPI.Lib</Title>
-        <Authors>b1acksoil</Authors>
-        <Description>Lib for ArcaeaUnlimitedAPI.</Description>
         <PackageProjectUrl>https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI.Lib</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI.Lib.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
