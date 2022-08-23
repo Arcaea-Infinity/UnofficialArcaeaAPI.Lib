@@ -9,7 +9,7 @@ public class AuaClient
 {
     public HttpClient? HttpClient { get; set; }
 
-    public string UserAgent { get; set; } = "";
+    public string Token { get; set; } = "";
 
     public int Timeout { get; set; } = 60;
 
@@ -28,7 +28,7 @@ public class AuaClient
                 BaseAddress = new Uri(ApiUrl.EndsWith("/") ? ApiUrl : ApiUrl + "/"),
                 Timeout = new TimeSpan(0, 0, 0, Timeout)
             };
-            client.DefaultRequestHeaders.Add("User-Agent", UserAgent);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer "+Token);
 
             HttpClient = client;
         }
