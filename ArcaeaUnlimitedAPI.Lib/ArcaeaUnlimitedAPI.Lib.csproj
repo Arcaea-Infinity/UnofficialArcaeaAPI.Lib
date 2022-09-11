@@ -14,6 +14,9 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>Arcaea</PackageTags>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>1591</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
