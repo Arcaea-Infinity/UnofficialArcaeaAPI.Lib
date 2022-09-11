@@ -3,7 +3,7 @@
     <PropertyGroup>
         <Title>ArcaeaUnlimitedAPI.Lib</Title>
         <Authors>b1acksoil</Authors>
-        <PackageVersion>1.0.1</PackageVersion>
+        <PackageVersion>1.0.2</PackageVersion>
         <Description>Lib for ArcaeaUnlimitedAPI.</Description>
 
         <TargetFramework>net6.0</TargetFramework>
