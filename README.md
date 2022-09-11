@@ -15,7 +15,10 @@ using ArcaeaUnlimitedAPI.Lib.Models;
 var client = new AuaClient
 {
     ApiUrl = "<API Url>",
-    Token = "<Custom User Token>"
+    Token = "<Bearer Token>",
+    
+    // Or if you want
+    UserAgent = "<Custom User-Agent>"
 }.Initialize();
 
 // Query best 30 of Nagiha0798
