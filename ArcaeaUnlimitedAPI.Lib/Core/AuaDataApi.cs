@@ -14,6 +14,8 @@ public class AuaDataApi
         _client = client;
     }
 
+    #region /data/update
+
     private async Task<AuaUpdateContent> GetUpdate()
     {
         var response = JsonSerializer.Deserialize<AuaResponse<AuaUpdateContent>>(
@@ -29,6 +31,10 @@ public class AuaDataApi
     /// <endpoint>/data/update</endpoint>
     /// <returns>Update content with url and version</returns>
     public Task<AuaUpdateContent> Update() => GetUpdate();
+
+    #endregion /data/update
+
+    #region /data/playdata
 
     private static async Task<AuaPlaydataContent[]> GetPlaydata(HttpClient client, string songname,
         AuaSongQueryType queryType, ArcaeaDifficulty difficulty,
@@ -130,4 +136,98 @@ public class AuaDataApi
     public async Task<AuaPlaydataContent[]> Playdata(string songname, double start, double end)
         => await GetPlaydata(_client, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future,
             null, null, start, end);
+
+    #endregion /data/playdata
+
+    #region /data/theory
+
+    private async Task<AuaUserBest30Content> GetTheory(string version,
+        int overflow, AuaReplyWith replyWith)
+    {
+        var qb = new QueryBuilder()
+            .Add("version", version)
+            .Add("overflow", overflow.ToString());
+
+        if (replyWith.HasFlag(AuaReplyWith.Recent))
+            qb.Add("withrecent", "true");
+        if (replyWith.HasFlag(AuaReplyWith.SongInfo))
+            qb.Add("withsonginfo", "true");
+
+        var response = JsonSerializer.Deserialize<AuaResponse<AuaUserBest30Content>>(
+            await _client.GetStringAsync("data/theory" + qb.Build()))!;
+        if (response.Status < 0)
+            throw new AuaException(response.Status, response.Message!);
+        return response.Content!;
+    }
+
+    /// <summary>
+    /// Get the highest best30 scores in a specified version of Arcaea.
+    /// </summary>
+    /// <endpoint>/data/theory</endpoint>
+    /// <param name="version">The version of Arcaea, formatted like <c>4.0</c></param>
+    /// <param name="overflow">The number of the overflow records below the best30 minimum, range 0-10</param>
+    /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
+    /// <returns></returns>
+    public Task<AuaUserBest30Content> Theory(string version,
+        int overflow = 0, AuaReplyWith replyWith = AuaReplyWith.None)
+        => GetTheory(version, overflow, replyWith);
+
+    #endregion /data/theory
+
+    #region /data/density
+
+    private async Task<int[][]> GetDensity(string songname, AuaSongQueryType queryType, ArcaeaDifficulty difficulty)
+    {
+        var qb = new QueryBuilder()
+            .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
+        qb.Add("difficulty", ((int)difficulty).ToString());
+
+        var response = JsonSerializer.Deserialize<AuaResponse<int[][]>>(
+            await _client.GetStringAsync("data/theory" + qb.Build()))!;
+        if (response.Status < 0)
+            throw new AuaException(response.Status, response.Message!);
+        return response.Content!;
+    }
+
+    /// <summary>
+    /// Get song play density.
+    /// </summary>
+    /// <endpoint>/data/density</endpoint>
+    /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
+    /// <param name="queryType">Specify the query type between songname and songid</param>
+    /// <param name="difficulty">Song difficulty</param>
+    /// <returns>
+    /// A data array. <br/>
+    /// The each sub-array in the data contains 3 items:
+    /// <list type="number">
+    ///     <item>Formatted score (<c>score / 10000</c>)</item>
+    ///     <item>Formatted potential (<c>potential / 10</c>)</item>
+    ///     <item>User count</item>
+    /// </list>
+    /// </returns>
+    /// <remarks>It is a large data set, so it is not recommended to use this API frequently.</remarks>
+    public Task<int[][]> Density(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName,
+        ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
+        => GetDensity(songname, queryType, difficulty);
+
+    /// <summary>
+    /// Get song play density.
+    /// </summary>
+    /// <endpoint>/data/density</endpoint>
+    /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
+    /// <param name="difficulty">Song difficulty</param>
+    /// <returns>
+    /// A data array. <br/>
+    /// The each sub-array in the data contains 3 items:
+    /// <list type="number">
+    ///     <item>Formatted score (<c>score / 10000</c>)</item>
+    ///     <item>Formatted potential (<c>potential / 10</c>)</item>
+    ///     <item>User count</item>
+    /// </list>
+    /// </returns>
+    /// <remarks>It is a large data set, so it is not recommended to use this API frequently.</remarks>
+    public Task<int[][]> Density(string songname, ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
+        => GetDensity(songname, AuaSongQueryType.SongName, difficulty);
+
+    #endregion /data/density
 }
