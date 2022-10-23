@@ -58,7 +58,7 @@ Console.WriteLine(songinfo.Difficulties[2].NameEn);
 - [x] [data/theory](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/theory.md)
 - [x] [data/playdata](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/playdata.md)
 - [x] [data/density](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/density.md)
-- [ ] [data/challenge](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/challenge.md)
+- [x] [data/challenge](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/challenge.md)
 
 ## License
 

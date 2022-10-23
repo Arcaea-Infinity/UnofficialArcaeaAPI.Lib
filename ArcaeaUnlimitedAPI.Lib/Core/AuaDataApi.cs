@@ -230,4 +230,44 @@ public class AuaDataApi
         => GetDensity(songname, AuaSongQueryType.SongName, difficulty);
 
     #endregion /data/density
+
+    #region /data/challenge
+
+    private async Task<string> GetChallenge(string path, string? body, long? timestamp)
+    {
+        var qb = new QueryBuilder()
+            .Add("path", path);
+
+        if (body is not null) qb.Add("body", body);
+        if (timestamp is not null) qb.Add("timestamp", timestamp.ToString()!);
+
+        var response = JsonSerializer.Deserialize<AuaResponse<string>>(
+            await _client.GetStringAsync("data/challenge" + qb.Build()))!;
+        if (response.Status < 0)
+            throw new AuaException(response.Status, response.Message!);
+        return response.Content!;
+    }
+
+    /// <summary>
+    /// Get challenge of a specified arcapi path.
+    /// </summary>
+    /// <param name="path">Request arcapi path.</param>
+    /// <param name="body">Request body, optional when body is empty.</param>
+    /// <param name="timestamp">Request timestamp.</param>
+    /// <returns>Challenge string.</returns>
+    /// <remarks>It is designed for the release version of AUA, and not available for the release version.</remarks>
+    public Task<string> Challenge(string path, string? body = null, long? timestamp = null)
+        => GetChallenge(path, body, timestamp);
+
+    /// <summary>
+    /// Get challenge of a specified arcapi path.
+    /// </summary>
+    /// <param name="path">Request arcapi path.</param>
+    /// <param name="timestamp">Request timestamp.</param>
+    /// <returns>Challenge string.</returns>
+    /// <remarks>It is designed for the release version of AUA, and not available for the release version.</remarks>
+    public Task<string> Challenge(string path, long? timestamp = null)
+        => GetChallenge(path, null, timestamp);
+
+    #endregion /data/challenge
 }
