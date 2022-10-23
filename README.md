@@ -1,13 +1,15 @@
 ﻿# ArcaeaUnlimitedAPI.Lib
 
-A Library for ArcaeaUnlimitedAPI with C#.
+A wrapper for ArcaeaUnlimitedAPI with C#.
 
 ## Install
+
 ```shell
 dotnet add package ArcaeaUnlimitedAPI.Lib
 ```
 
 ## Usage
+
 ```csharp
 using ArcaeaUnlimitedAPI.Lib;
 using ArcaeaUnlimitedAPI.Lib.Models;
@@ -37,5 +39,25 @@ Console.WriteLine(songinfo.SongId);
 Console.WriteLine(songinfo.Difficulties[2].NameEn);
 ```
 
+## Supported endpoints
+
+- [x] [user/info](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/user/info.md)
+- [x] [user/best](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/user/best.md)
+- [x] [user/best30](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/user/best30.md)
+- [x] [song/info](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/song/info.md)
+- [ ] [song/list](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/song/list.md)
+- [x] [song/alias](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/song/alias.md)
+- [x] [song/random](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/song/random.md)
+- [x] [assets/icon](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/assets/icon.md)
+- [x] [assets/char](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/assets/char.md)
+- [x] [assets/song](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/assets/song.md)
+- [ ] [assets/preview](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/assets/preview.md)
+- [x] [data/update](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/update.md)
+- [x] [data/theory](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/theory.md)
+- [x] [data/playdata](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/playdata.md)
+- [x] [data/density](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/density.md)
+- [ ] [data/challenge](https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI-Wiki/blob/main/data/challenge.md)
+
 ## License
+
 This project is under [616SB License](./LICENSE).
