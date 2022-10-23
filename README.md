@@ -1,5 +1,7 @@
 ﻿# ArcaeaUnlimitedAPI.Lib
 
+[![NuGet](https://img.shields.io/nuget/vpre/ArcaeaUnlimitedAPI.Lib?label=NuGet)](https://www.nuget.org/packages/ArcaeaUnlimitedAPI.Lib/)
+
 A wrapper for ArcaeaUnlimitedAPI with C#.
 
 ## Install
