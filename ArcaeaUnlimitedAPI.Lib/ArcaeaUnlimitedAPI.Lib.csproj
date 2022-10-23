@@ -2,21 +2,21 @@
 
     <PropertyGroup>
         <Title>ArcaeaUnlimitedAPI.Lib</Title>
+        <PackageVersion>2.0.0</PackageVersion>
         <Authors>b1acksoil</Authors>
-        <PackageVersion>1.0.2</PackageVersion>
         <Description>Lib for ArcaeaUnlimitedAPI.</Description>
+        <PackageTags>Arcaea</PackageTags>
 
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>1591</NoWarn>
+
         <PackageProjectUrl>https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI.Lib</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI.Lib.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>Arcaea</PackageTags>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <NoWarn>1591</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
