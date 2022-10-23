@@ -12,6 +12,8 @@ public class AuaAssetsApi
         _client = client;
     }
 
+    #region /assets/icon
+
     private async Task<byte[]> GetIcon(int partner, bool awakened)
     {
         var qb = new QueryBuilder()
@@ -27,9 +29,12 @@ public class AuaAssetsApi
     /// <param name="partner">Partner ID</param>
     /// <param name="awakened">Partner awakened</param>
     /// <returns>Byte array represents the image</returns>
-    public async Task<byte[]> Icon(int partner, bool awakened = false)
-        => await GetIcon(partner, awakened);
+    public Task<byte[]> Icon(int partner, bool awakened = false)
+        => GetIcon(partner, awakened);
 
+    #endregion /assets/icon
+
+    #region /assets/char
 
     private async Task<byte[]> GetChar(int partner, bool awakened)
     {
@@ -46,9 +51,12 @@ public class AuaAssetsApi
     /// <param name="partner">Partner ID</param>
     /// <param name="awakened">Partner awakened</param>
     /// <returns>Byte array represents the image</returns>
-    public async Task<byte[]> Char(int partner, bool awakened = false)
-        => await GetChar(partner, awakened);
+    public Task<byte[]> Char(int partner, bool awakened = false)
+        => GetChar(partner, awakened);
 
+    #endregion /assets/char
+
+    #region /assets/song
 
     private async Task<byte[]> GetSong(string songnameOrFilename, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty)
@@ -76,9 +84,9 @@ public class AuaAssetsApi
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
-    public async Task<byte[]> Song(string songnameOrFilename, AuaSongQueryType queryType = AuaSongQueryType.SongName,
+    public Task<byte[]> Song(string songnameOrFilename, AuaSongQueryType queryType = AuaSongQueryType.SongName,
         ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
-        => await GetSong(songnameOrFilename, queryType, difficulty);
+        => GetSong(songnameOrFilename, queryType, difficulty);
 
     /// <summary>
     /// Get song cover.
@@ -87,6 +95,8 @@ public class AuaAssetsApi
     /// <param name="songname">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
-    public async Task<byte[]> Song(string songname, ArcaeaDifficulty difficulty)
-        => await GetSong(songname, AuaSongQueryType.SongName, difficulty);
+    public Task<byte[]> Song(string songname, ArcaeaDifficulty difficulty)
+        => GetSong(songname, AuaSongQueryType.SongName, difficulty);
+
+    #endregion /assets/icon
 }
