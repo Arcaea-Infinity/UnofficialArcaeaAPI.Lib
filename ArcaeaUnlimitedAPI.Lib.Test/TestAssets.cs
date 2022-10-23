@@ -11,7 +11,7 @@ public static class TestAssets
         var iconImg = await client.Assets.Icon(1, true);
         var charImg = await client.Assets.Char(1, true);
         var songImg = await client.Assets.Song("ifi", AuaSongQueryType.SongId);
-        
+
         await File.WriteAllBytesAsync("Test.Icon.png", iconImg);
         await File.WriteAllBytesAsync("Test.Char.png", charImg);
         await File.WriteAllBytesAsync("Test.Song.jpg", songImg);

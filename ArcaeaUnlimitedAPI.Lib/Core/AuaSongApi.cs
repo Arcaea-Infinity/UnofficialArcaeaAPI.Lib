@@ -100,7 +100,7 @@ public class AuaSongApi
     public async Task<AuaSongRandomContent> Random(string start = "0", string end = "12",
         AuaReplyWith replyWith = AuaReplyWith.None)
         => await GetRandom(null, null, start, end, replyWith);
-    
+
     /// <summary>
     /// Get random song.
     /// </summary>
@@ -120,7 +120,7 @@ public class AuaSongApi
     /// <returns>Random song content</returns>
     public async Task<AuaSongRandomContent> Random(string start, AuaReplyWith replyWith)
         => await GetRandom(null, null, start, "12", replyWith);
-    
+
     /// <summary>
     /// Get random song.
     /// </summary>

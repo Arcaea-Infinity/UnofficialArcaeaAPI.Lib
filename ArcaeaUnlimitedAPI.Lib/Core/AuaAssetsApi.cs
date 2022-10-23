@@ -79,7 +79,7 @@ public class AuaAssetsApi
     public async Task<byte[]> Song(string songnameOrFilename, AuaSongQueryType queryType = AuaSongQueryType.SongName,
         ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
         => await GetSong(songnameOrFilename, queryType, difficulty);
-    
+
     /// <summary>
     /// Get song cover.
     /// </summary>

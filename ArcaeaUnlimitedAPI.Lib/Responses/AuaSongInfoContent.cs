@@ -8,7 +8,7 @@ namespace ArcaeaUnlimitedAPI.Lib.Responses;
 public class AuaSongInfoContent
 {
     [JsonPropertyName("song_id")] public string SongId { get; set; }
-    
+
     [JsonPropertyName("difficulties")] public AuaChartInfo[] Difficulties { get; set; }
 
     [JsonPropertyName("alias")] public string[] Alias { get; set; }

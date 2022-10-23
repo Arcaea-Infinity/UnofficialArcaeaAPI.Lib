@@ -10,7 +10,7 @@ public static class Utils
         Console.Write(message);
         Console.ForegroundColor = ConsoleColor.Gray;
     }
-    
+
     public static void LogError(string message)
     {
         Console.ForegroundColor = ConsoleColor.Red;

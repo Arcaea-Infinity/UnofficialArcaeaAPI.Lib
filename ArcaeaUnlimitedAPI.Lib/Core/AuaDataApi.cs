@@ -13,7 +13,7 @@ public class AuaDataApi
     {
         _client = client;
     }
-    
+
     private async Task<AuaUpdateContent> GetUpdate()
     {
         var response = JsonSerializer.Deserialize<AuaResponse<AuaUpdateContent>>(
@@ -29,7 +29,7 @@ public class AuaDataApi
     /// <endpoint>/data/update</endpoint>
     /// <returns>Update content with url and version</returns>
     public Task<AuaUpdateContent> Update() => GetUpdate();
-    
+
     private static async Task<AuaPlaydataContent[]> GetPlaydata(HttpClient client, string songname,
         AuaSongQueryType queryType, ArcaeaDifficulty difficulty,
         int? startInt, int? endInt, double? startDouble, double? endDouble)
@@ -43,14 +43,14 @@ public class AuaDataApi
             .Add("end", (endDouble is null
                 ? endInt.ToString()
                 : ((int)Math.Round(endDouble.Value * 100)).ToString())!);
-        
+
         var response = JsonSerializer.Deserialize<AuaResponse<AuaPlaydataContent[]>>(
             await client.GetStringAsync("playdata" + qb.Build()))!;
         if (response.Status < 0)
             throw new AuaException(response.Status, response.Message!);
         return response.Content!;
     }
-    
+
     /// <summary>
     /// Get global play data of a song.
     /// </summary>

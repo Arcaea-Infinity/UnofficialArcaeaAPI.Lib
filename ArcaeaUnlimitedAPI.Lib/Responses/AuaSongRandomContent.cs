@@ -8,8 +8,8 @@ namespace ArcaeaUnlimitedAPI.Lib.Responses;
 public class AuaSongRandomContent
 {
     [JsonPropertyName("id")] public string Id { get; set; }
-    
+
     [JsonPropertyName("ratingClass")] public int RatingClass { get; set; }
-    
+
     [JsonPropertyName("songinfo")] public AuaChartInfo? SongInfo { get; set; }
 }

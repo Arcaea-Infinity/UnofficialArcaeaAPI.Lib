@@ -32,5 +32,6 @@ public class AuaRecord
 
     [JsonPropertyName("perfect_count")] public int PerfectCount { get; set; }
 
-    [JsonPropertyName("shiny_perfect_count")] public int ShinyPerfectCount { get; set; }
+    [JsonPropertyName("shiny_perfect_count")]
+    public int ShinyPerfectCount { get; set; }
 }

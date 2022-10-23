@@ -44,7 +44,7 @@ public class AuaClient
 
         return this;
     }
-    
+
     #region Obsoleted
 
     /// <summary>
@@ -137,6 +137,6 @@ public class AuaClient
     [Obsolete("Use Data.Playdata instead.")]
     public Task<AuaPlaydataContent[]> Playdata(string songname, double start, double end)
         => Data.Playdata(songname, start, end);
-    
+
     #endregion Obsoleted
 }
