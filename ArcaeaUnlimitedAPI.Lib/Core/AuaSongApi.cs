@@ -14,6 +14,8 @@ public class AuaSongApi
         _client = client;
     }
 
+    #region /song/info
+     
     private async Task<AuaSongInfoContent> GetInfo(string songname, AuaSongQueryType queryType)
     {
         var qb = new QueryBuilder()
@@ -35,7 +37,10 @@ public class AuaSongApi
     /// <returns>Song information</returns>
     public async Task<AuaSongInfoContent> Info(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName)
         => await GetInfo(songname, queryType);
-
+        
+    #endregion /song/info
+    
+    #region /song/alias
 
     private async Task<string[]> GetAlias(string songname, AuaSongQueryType queryType)
     {
@@ -58,7 +63,10 @@ public class AuaSongApi
     /// <returns>Song alias(es)</returns>
     public async Task<string[]> Alias(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName)
         => await GetAlias(songname, queryType);
-
+        
+    #endregion /song/alias
+    
+    #region /song/random
 
     private async Task<AuaSongRandomContent> GetRandom(double? startDouble, double? endDouble, string? startString,
         string? endString, AuaReplyWith replyWith)
@@ -129,4 +137,26 @@ public class AuaSongApi
     /// <returns>Random song content</returns>
     public async Task<AuaSongRandomContent> Random(AuaReplyWith replyWith)
         => await GetRandom(0.0, 12.0, null, null, replyWith);
+        
+    #endregion /song/random
+    
+    #region /song/list
+    
+    private async Task<AuaSongListContent> GetList()
+    {
+        var response = JsonSerializer.Deserialize<AuaResponse<AuaSongListContent>>(
+            await _client.GetStringAsync("/song/list"))!;
+        if (response.Status < 0)
+            throw new AuaException(response.Status, response.Message!);
+        return response.Content!;
+    }
+
+    /// <summary>
+    /// Get songlist.
+    /// </summary>
+    /// <endpoint>/song/list</endpoint>
+    /// <remarks>It is a large data set, so it is not recommended to use this API frequently.</remarks>
+    public Task<AuaSongListContent> List() => GetList();
+    
+    #endregion /song/list
 }
