@@ -28,12 +28,12 @@ public class AuaUserApi
 
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
             qb.Add("withsonginfo", "true");
-
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaUserInfoContent>>(
-            await _client.GetStringAsync("user/info" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("user/info" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<AuaUserInfoContent>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -99,11 +99,12 @@ public class AuaUserApi
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
             qb.Add("withsonginfo", "true");
 
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaUserBestContent>>(
-            await _client.GetStringAsync("user/best" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("user/best" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<AuaUserBestContent>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -207,11 +208,12 @@ public class AuaUserApi
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
             qb.Add("withsonginfo", "true");
 
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaUserBest30Content>>(
-            await _client.GetStringAsync("user/best30" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("user/best30" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<AuaUserBest30Content>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>

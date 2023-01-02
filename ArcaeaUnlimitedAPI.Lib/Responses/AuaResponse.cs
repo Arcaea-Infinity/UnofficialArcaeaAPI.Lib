@@ -10,3 +10,10 @@ public class AuaResponse<TContent>
 
     [JsonPropertyName("message")] public string? Message { get; set; }
 }
+
+public class AuaResponse
+{
+    [JsonPropertyName("status")] public int Status { get; set; }
+
+    [JsonPropertyName("message")] public string? Message { get; set; }
+}

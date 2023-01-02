@@ -1,4 +1,7 @@
-﻿using ArcaeaUnlimitedAPI.Lib.Models;
+﻿using System.Net;
+using System.Text.Json;
+using ArcaeaUnlimitedAPI.Lib.Models;
+using ArcaeaUnlimitedAPI.Lib.Responses;
 using ArcaeaUnlimitedAPI.Lib.Utils;
 
 namespace ArcaeaUnlimitedAPI.Lib.Core;
@@ -14,12 +17,24 @@ public class AuaAssetsApi
 
     #region /assets/icon
 
+    private async Task<byte[]> EnsureSuccess(HttpResponseMessage resp)
+    {
+        if (resp.StatusCode != HttpStatusCode.OK)
+        {
+            var errJson = JsonSerializer.Deserialize<AuaResponse>(await resp.Content.ReadAsStringAsync())!;
+            throw new AuaException(errJson.Status, errJson.Message!);
+        }
+
+        return await resp.Content.ReadAsByteArrayAsync();
+    }
+
     private async Task<byte[]> GetIcon(int partner, bool awakened)
     {
         var qb = new QueryBuilder()
             .Add("partner", partner.ToString())
             .Add("awakened", awakened.ToString());
-        return await _client.GetByteArrayAsync("assets/icon" + qb.Build());
+        var resp = await _client.GetAsync("assets/icon" + qb.Build());
+        return await EnsureSuccess(resp);
     }
 
     /// <summary>
@@ -41,7 +56,8 @@ public class AuaAssetsApi
         var qb = new QueryBuilder()
             .Add("partner", partner.ToString())
             .Add("awakened", awakened.ToString());
-        return await _client.GetByteArrayAsync("assets/char" + qb.Build());
+        var resp = await _client.GetAsync("assets/char" + qb.Build());
+        return await EnsureSuccess(resp);
     }
 
     /// <summary>
@@ -73,7 +89,8 @@ public class AuaAssetsApi
         if (queryType != AuaSongQueryType.FileName)
             qb.Add("difficulty", ((int)difficulty).ToString());
 
-        return await _client.GetByteArrayAsync("assets/song" + qb.Build());
+        var resp = await _client.GetAsync("assets/song" + qb.Build());
+        return await EnsureSuccess(resp);
     }
 
     /// <summary>
@@ -99,7 +116,7 @@ public class AuaAssetsApi
         => GetSong(songname, AuaSongQueryType.SongName, difficulty);
 
     #endregion /assets/song
-    
+
     #region /assets/preview
 
     private async Task<byte[]> GetPreview(string songname, AuaSongQueryType queryType,
@@ -112,7 +129,8 @@ public class AuaAssetsApi
         if (queryType != AuaSongQueryType.FileName)
             qb.Add("difficulty", ((int)difficulty).ToString());
 
-        return await _client.GetByteArrayAsync("assets/preview" + qb.Build());
+        var resp = await _client.GetAsync("assets/preview" + qb.Build());
+        return await EnsureSuccess(resp);
     }
 
     /// <summary>

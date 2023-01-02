@@ -18,11 +18,12 @@ public class AuaDataApi
 
     private async Task<AuaUpdateContent> GetUpdate()
     {
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaUpdateContent>>(
-            await _client.GetStringAsync("/data/update"))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("/data/update");
+        var json = JsonSerializer.Deserialize<AuaResponse<AuaUpdateContent>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -50,11 +51,12 @@ public class AuaDataApi
                 ? endInt.ToString()
                 : ((int)Math.Round(endDouble.Value * 100)).ToString())!);
 
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaPlaydataContent[]>>(
-            await client.GetStringAsync("playdata" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await client.GetAsync("playdata" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<AuaPlaydataContent[]>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -153,11 +155,12 @@ public class AuaDataApi
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
             qb.Add("withsonginfo", "true");
 
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaUserBest30Content>>(
-            await _client.GetStringAsync("data/theory" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("data/theory" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<AuaUserBest30Content>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -182,11 +185,12 @@ public class AuaDataApi
             .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
         qb.Add("difficulty", ((int)difficulty).ToString());
 
-        var response = JsonSerializer.Deserialize<AuaResponse<int[][]>>(
-            await _client.GetStringAsync("data/theory" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("data/theory" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<int[][]>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -241,11 +245,12 @@ public class AuaDataApi
         if (body is not null) qb.Add("body", body);
         if (timestamp is not null) qb.Add("timestamp", timestamp.ToString()!);
 
-        var response = JsonSerializer.Deserialize<AuaResponse<string>>(
-            await _client.GetStringAsync("data/challenge" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("data/challenge" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<string>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>

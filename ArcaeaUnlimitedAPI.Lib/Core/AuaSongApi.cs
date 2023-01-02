@@ -21,11 +21,12 @@ public class AuaSongApi
         var qb = new QueryBuilder()
             .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
 
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaSongInfoContent>>(
-            await _client.GetStringAsync("song/info" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("song/info" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<AuaSongInfoContent>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -46,12 +47,12 @@ public class AuaSongApi
     {
         var qb = new QueryBuilder()
             .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
-
-        var response = JsonSerializer.Deserialize<AuaResponse<string[]>>(
-            await _client.GetStringAsync("song/alias" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("song/alias" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<string[]>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -78,11 +79,12 @@ public class AuaSongApi
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
             qb.Add("withsonginfo", "true");
 
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaSongRandomContent>>(
-            await _client.GetStringAsync("song/random" + qb.Build()))!;
-        if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
-        return response.Content!;
+        var resp = await _client.GetAsync("song/random" + qb.Build());
+        var json = JsonSerializer.Deserialize<AuaResponse<AuaSongRandomContent>>(
+            await resp.Content.ReadAsStringAsync())!;
+        if (json.Status < 0)
+            throw new AuaException(json.Status, json.Message!);
+        return json.Content!;
     }
 
     /// <summary>
@@ -144,8 +146,9 @@ public class AuaSongApi
 
     private async Task<AuaSongListContent> GetList()
     {
+        var resp = await _client.GetAsync("/song/list");
         var response = JsonSerializer.Deserialize<AuaResponse<AuaSongListContent>>(
-            await _client.GetStringAsync("/song/list"))!;
+            await resp.Content.ReadAsStringAsync())!;
         if (response.Status < 0)
             throw new AuaException(response.Status, response.Message!);
         return response.Content!;
