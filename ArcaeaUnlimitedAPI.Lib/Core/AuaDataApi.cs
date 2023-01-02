@@ -26,7 +26,7 @@ public class AuaDataApi
     }
 
     /// <summary>
-    /// Get latest Arcaea apk download url.
+    /// Get the latest Arcaea apk download url.
     /// </summary>
     /// <endpoint>/data/update</endpoint>
     /// <returns>Update content with url and version</returns>
