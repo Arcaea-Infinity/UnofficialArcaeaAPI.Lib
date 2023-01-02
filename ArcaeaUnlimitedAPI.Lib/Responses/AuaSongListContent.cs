@@ -4,5 +4,6 @@ namespace ArcaeaUnlimitedAPI.Lib.Responses;
 
 public class AuaSongListContent
 {
-    [JsonPropertyName("songs")] public AuaSongInfoContent[] Songs { get; set; }
+    [JsonPropertyName("songs")]
+    public AuaSongInfoContent[] Songs { get; set; }
 }

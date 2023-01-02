@@ -7,9 +7,12 @@ namespace ArcaeaUnlimitedAPI.Lib.Responses;
 
 public class AuaUserInfoContent
 {
-    [JsonPropertyName("account_info")] public AuaAccountInfo AccountInfo { get; set; }
+    [JsonPropertyName("account_info")]
+    public AuaAccountInfo AccountInfo { get; set; }
 
-    [JsonPropertyName("recent_score")] public AuaRecord[]? RecentScore { get; set; }
+    [JsonPropertyName("recent_score")]
+    public AuaRecord[]? RecentScore { get; set; }
 
-    [JsonPropertyName("songinfo")] public AuaChartInfo[]? SongInfo { get; set; }
+    [JsonPropertyName("songinfo")]
+    public AuaChartInfo[]? SongInfo { get; set; }
 }

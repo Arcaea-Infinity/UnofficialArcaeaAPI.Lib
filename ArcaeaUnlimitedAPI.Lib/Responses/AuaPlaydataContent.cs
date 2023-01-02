@@ -6,7 +6,9 @@ namespace ArcaeaUnlimitedAPI.Lib.Responses;
 
 public class AuaPlaydataContent
 {
-    [JsonPropertyName("fscore")] public int FScore { get; set; }
+    [JsonPropertyName("fscore")]
+    public int FScore { get; set; }
 
-    [JsonPropertyName("count")] public int Count { get; set; }
+    [JsonPropertyName("count")]
+    public int Count { get; set; }
 }
