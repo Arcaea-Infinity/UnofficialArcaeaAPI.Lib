@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <Title>ArcaeaUnlimitedAPI.Lib</Title>
-        <PackageVersion>2.1.0</PackageVersion>
+        <PackageVersion>2.2.0</PackageVersion>
         <Authors>b1acksoil</Authors>
         <Description>Lib for ArcaeaUnlimitedAPI.</Description>
         <PackageTags>Arcaea</PackageTags>
