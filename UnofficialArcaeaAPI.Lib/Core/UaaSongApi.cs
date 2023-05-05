@@ -16,10 +16,10 @@ public sealed class UaaSongApi
 
     #region /song/info
 
-    private async Task<UaaSongInfoContent> GetInfoAsyncCore(string songname, AuaSongQueryType queryType)
+    private async Task<UaaSongInfoContent> GetInfoAsyncCore(string songName, AuaSongQueryType queryType)
     {
         var qb = new QueryBuilder()
-            .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
+            .Add(queryType == AuaSongQueryType.SongId ? "song_id" : "song_name", songName);
 
         var resp = await _client.GetAsync("song/info" + qb.Build());
         var json = JsonSerializer.Deserialize<UaaResponse<UaaSongInfoContent>>(
@@ -32,20 +32,20 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get information of a song.
     /// </summary>
-    /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
+    /// <param name="songName">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <returns>Song information</returns>
-    public Task<UaaSongInfoContent> GetInfoAsync(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName)
-        => GetInfoAsyncCore(songname, queryType);
+    public Task<UaaSongInfoContent> GetInfoAsync(string songName, AuaSongQueryType queryType = AuaSongQueryType.SongName)
+        => GetInfoAsyncCore(songName, queryType);
 
     #endregion /song/info
 
     #region /song/alias
 
-    private async Task<string[]> GetAliasAsyncCore(string songname, AuaSongQueryType queryType)
+    private async Task<string[]> GetAliasAsyncCore(string songName, AuaSongQueryType queryType)
     {
         var qb = new QueryBuilder()
-            .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
+            .Add(queryType == AuaSongQueryType.SongId ? "song_id" : "song_name", songName);
         var resp = await _client.GetAsync("song/alias" + qb.Build());
         var json = JsonSerializer.Deserialize<UaaResponse<string[]>>(
             await resp.Content.ReadAsStringAsync())!;
@@ -57,11 +57,11 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get alias(es) of a song.
     /// </summary>
-    /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
+    /// <param name="songName">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <returns>Song alias(es)</returns>
-    public Task<string[]> GetAliasAsync(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName)
-        => GetAliasAsyncCore(songname, queryType);
+    public Task<string[]> GetAliasAsync(string songName, AuaSongQueryType queryType = AuaSongQueryType.SongName)
+        => GetAliasAsyncCore(songName, queryType);
 
     #endregion /song/alias
 
@@ -75,7 +75,7 @@ public sealed class UaaSongApi
             .Add("end", endString ?? endDouble.ToString()!);
 
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
-            qb.Add("withsonginfo", "true");
+            qb.Add("with_song_info", "true");
 
         var resp = await _client.GetAsync("song/random" + qb.Build());
         var json = JsonSerializer.Deserialize<UaaResponse<UaaSongRandomContent>>(

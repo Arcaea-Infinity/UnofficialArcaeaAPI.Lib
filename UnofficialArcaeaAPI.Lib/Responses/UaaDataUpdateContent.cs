@@ -4,7 +4,7 @@ namespace UnofficialArcaeaAPI.Lib.Responses;
 
 #pragma warning disable CS8618
 
-public class UaaUpdateContent
+public class UaaDataUpdateContent
 {
     [JsonPropertyName("url")]
     public string Url { get; set; }

@@ -10,9 +10,9 @@ public class UaaSongRandomContent
     [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonPropertyName("ratingClass")]
+    [JsonPropertyName("rating_class")]
     public int RatingClass { get; set; }
 
-    [JsonPropertyName("songinfo")]
+    [JsonPropertyName("song_info")]
     public UaaChartInfo? SongInfo { get; set; }
 }

@@ -16,18 +16,19 @@ public sealed class UaaUserApi
 
     #region /user/info
 
-    private async Task<UaaUserInfoContent> GetInfoAsyncCore(string? user, int? usercode, int recent, AuaReplyWith replyWith)
+    private async Task<UaaUserInfoContent> GetInfoAsyncCore(string? user, int? userCode, int recent,
+        AuaReplyWith replyWith)
     {
         var qb = new QueryBuilder()
             .Add("recent", recent.ToString());
 
         if (user is not null)
-            qb.Add("user", user);
+            qb.Add("user_name", user);
         else
-            qb.Add("usercode", usercode.ToString()!);
+            qb.Add("user_code", userCode.ToString()!);
 
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
-            qb.Add("withsonginfo", "true");
+            qb.Add("with_song_info", "true");
         var resp = await _client.GetAsync("user/info" + qb.Build());
         var json = JsonSerializer.Deserialize<UaaResponse<UaaUserInfoContent>>(
             await resp.Content.ReadAsStringAsync())!;
@@ -43,18 +44,20 @@ public sealed class UaaUserApi
     /// <param name="recent">The number of recently played songs expected, range 0-7</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>User info content</returns>
-    public Task<UaaUserInfoContent> GetInfoAsync(string user, int recent = 0, AuaReplyWith replyWith = AuaReplyWith.None)
+    public Task<UaaUserInfoContent> GetInfoAsync(string user, int recent = 0,
+        AuaReplyWith replyWith = AuaReplyWith.None)
         => GetInfoAsyncCore(user, null, recent, replyWith);
 
     /// <summary>
     /// Get user info.
     /// </summary>
-    /// <param name="usercode">9-digit user code</param>
+    /// <param name="userCode">9-digit user code</param>
     /// <param name="recent">The number of recently played songs expected, range 0-7</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>User info content</returns>
-    public Task<UaaUserInfoContent> GetInfoAsync(int usercode, int recent = 0, AuaReplyWith replyWith = AuaReplyWith.None)
-        => GetInfoAsyncCore(null, usercode, recent, replyWith);
+    public Task<UaaUserInfoContent> GetInfoAsync(int userCode, int recent = 0,
+        AuaReplyWith replyWith = AuaReplyWith.None)
+        => GetInfoAsyncCore(null, userCode, recent, replyWith);
 
     /// <summary>
     /// Get user info.
@@ -68,32 +71,32 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user info.
     /// </summary>
-    /// <param name="usercode">9-digit user code</param>
+    /// <param name="userCode">9-digit user code</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>User info content</returns>
-    public Task<UaaUserInfoContent> GetInfoAsync(int usercode, AuaReplyWith replyWith)
-        => GetInfoAsyncCore(null, usercode, 0, replyWith);
+    public Task<UaaUserInfoContent> GetInfoAsync(int userCode, AuaReplyWith replyWith)
+        => GetInfoAsyncCore(null, userCode, 0, replyWith);
 
     #endregion /user/info
 
     #region /user/best
 
-    private async Task<UaaUserBestContent> GetBestAsyncCore(string? user, int? usercode, string songname,
+    private async Task<UaaUserBestContent> GetBestAsyncCore(string? user, int? userCode, string songname,
         AuaSongQueryType queryType, ArcaeaDifficulty difficulty, AuaReplyWith replyWith)
     {
         var qb = new QueryBuilder()
-            .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname)
+            .Add(queryType == AuaSongQueryType.SongId ? "song_id" : "song_name", songname)
             .Add("difficulty", ((int)difficulty).ToString());
 
         if (user is not null)
-            qb.Add("user", user);
+            qb.Add("user_name", user);
         else
-            qb.Add("usercode", usercode.ToString()!);
+            qb.Add("user_code", userCode.ToString()!);
 
         if (replyWith.HasFlag(AuaReplyWith.Recent))
-            qb.Add("withrecent", "true");
+            qb.Add("with_recent", "true");
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
-            qb.Add("withsonginfo", "true");
+            qb.Add("with_song_info", "true");
 
         var resp = await _client.GetAsync("user/best" + qb.Build());
         var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBestContent>>(
@@ -107,144 +110,169 @@ public sealed class UaaUserApi
     /// Get user best score.
     /// </summary>
     /// <param name="user">User name or 9-digit user code</param>
-    /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
+    /// <param name="songName">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best content</returns>
-    public Task<UaaUserBestContent> GetBestAsync(string user, string songname,
+    public Task<UaaUserBestContent> GetBestAsync(string user, string songName,
         AuaSongQueryType queryType = AuaSongQueryType.SongName, ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future,
         AuaReplyWith replyWith = AuaReplyWith.None)
-        => GetBestAsyncCore(user, null, songname, queryType, difficulty, replyWith);
+        => GetBestAsyncCore(user, null, songName, queryType, difficulty, replyWith);
 
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <param name="usercode">9-digit user code</param>
-    /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
+    /// <param name="userCode">9-digit user code</param>
+    /// <param name="songName">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best content</returns>
-    public Task<UaaUserBestContent> GetBestAsync(int usercode, string songname,
+    public Task<UaaUserBestContent> GetBestAsync(int userCode, string songName,
         AuaSongQueryType queryType = AuaSongQueryType.SongName, ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future,
         AuaReplyWith replyWith = AuaReplyWith.None)
-        => GetBestAsyncCore(null, usercode, songname, queryType, difficulty, replyWith);
+        => GetBestAsyncCore(null, userCode, songName, queryType, difficulty, replyWith);
 
     /// <summary>
     /// Get user best score.
     /// </summary>
     /// <param name="user">User name or 9-digit user code</param>
-    /// <param name="songname">Any song name for fuzzy querying</param>
+    /// <param name="songName">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best content</returns>
-    public Task<UaaUserBestContent> GetBestAsync(string user, string songname,
+    public Task<UaaUserBestContent> GetBestAsync(string user, string songName,
         ArcaeaDifficulty difficulty,
         AuaReplyWith replyWith = AuaReplyWith.None)
-        => GetBestAsyncCore(user, null, songname, AuaSongQueryType.SongName, difficulty, replyWith);
+        => GetBestAsyncCore(user, null, songName, AuaSongQueryType.SongName, difficulty, replyWith);
 
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <param name="usercode">9-digit user code</param>
-    /// <param name="songname">Any song name for fuzzy querying</param>
+    /// <param name="userCode">9-digit user code</param>
+    /// <param name="songName">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best content</returns>
-    public Task<UaaUserBestContent> GetBestAsync(int usercode, string songname,
+    public Task<UaaUserBestContent> GetBestAsync(int userCode, string songName,
         ArcaeaDifficulty difficulty,
         AuaReplyWith replyWith = AuaReplyWith.None)
-        => GetBestAsyncCore(null, usercode, songname, AuaSongQueryType.SongName, difficulty, replyWith);
+        => GetBestAsyncCore(null, userCode, songName, AuaSongQueryType.SongName, difficulty, replyWith);
 
     /// <summary>
     /// Get user best score.
     /// </summary>
     /// <param name="user">User name or 9-digit user code</param>
-    /// <param name="songname">Any song name for fuzzy querying</param>
+    /// <param name="songName">Any song name for fuzzy querying</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best content</returns>
-    public Task<UaaUserBestContent> GetBestAsync(string user, string songname, AuaReplyWith replyWith)
-        => GetBestAsyncCore(user, null, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future, replyWith);
+    public Task<UaaUserBestContent> GetBestAsync(string user, string songName, AuaReplyWith replyWith)
+        => GetBestAsyncCore(user, null, songName, AuaSongQueryType.SongName, ArcaeaDifficulty.Future, replyWith);
 
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <param name="usercode">9-digit user code</param>
-    /// <param name="songname">Any song name for fuzzy querying</param>
+    /// <param name="userCode">9-digit user code</param>
+    /// <param name="songName">Any song name for fuzzy querying</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best content</returns>
-    public Task<UaaUserBestContent> GetBestAsync(int usercode, string songname,
+    public Task<UaaUserBestContent> GetBestAsync(int userCode, string songName,
         AuaReplyWith replyWith)
-        => GetBestAsyncCore(null, usercode, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future, replyWith);
+        => GetBestAsyncCore(null, userCode, songName, AuaSongQueryType.SongName, ArcaeaDifficulty.Future, replyWith);
 
     #endregion /user/best
 
-    #region /user/best30
+    #region /user/bests/session
 
-    private async Task<UaaUserBest30Content> GetBest30AsyncCore(string? user, int? usercode, int overflow,
+    private async Task<UaaUserBestsSessionContent> GetBestsSessionAsyncCore(string? user, int? userCode)
+    {
+        var qb = new QueryBuilder();
+
+        if (user is not null)
+            qb.Add("user_name", user);
+        else
+            qb.Add("user_code", userCode.ToString()!);
+
+        var resp = await _client.GetAsync("user/bests/session" + qb.Build());
+        var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBestsSessionContent>>(
+            await resp.Content.ReadAsStringAsync())!;
+
+        if (json.Status == -33)
+            json.Content!.IsCacheSession = true;
+        else if (json.Status < 0)
+            throw new UaaRequestException(json.Status, json.Message!);
+
+        return json.Content!;
+    }
+
+    /// <summary>
+    /// Get user bests session information.
+    /// </summary>
+    /// <param name="user">User name or 9-digit user code</param>
+    /// <returns>User bests session information</returns>
+    public Task<UaaUserBestsSessionContent> GetBestsSessionAsync(string user)
+        => GetBestsSessionAsyncCore(user, null);
+
+    /// <summary>
+    /// Get user bests session information.
+    /// </summary>
+    /// <param name="userCode">9-digit user code</param>
+    /// <returns>User bests session information</returns>
+    public Task<UaaUserBestsSessionContent> GetBestsSessionAsync(int userCode)
+        => GetBestsSessionAsyncCore(null, userCode);
+
+    #endregion /user/bests/session
+
+    #region /user/bests/result
+
+    private async Task<UaaUserBestsResultContent> GetBestsResultAsyncCore(string sessionInfo, int overflow,
         AuaReplyWith replyWith)
     {
         var qb = new QueryBuilder()
+            .Add("session_info", sessionInfo)
             .Add("overflow", overflow.ToString());
 
-        if (user is not null)
-            qb.Add("user", user);
-        else
-            qb.Add("usercode", usercode.ToString()!);
-
         if (replyWith.HasFlag(AuaReplyWith.Recent))
-            qb.Add("withrecent", "true");
+            qb.Add("with_recent", "true");
         if (replyWith.HasFlag(AuaReplyWith.SongInfo))
-            qb.Add("withsonginfo", "true");
+            qb.Add("with_song_info", "true");
 
-        var resp = await _client.GetAsync("user/best30" + qb.Build());
-        var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBest30Content>>(
+        var resp = await _client.GetAsync("user/bests/result" + qb.Build());
+        var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBestsResultContent>>(
             await resp.Content.ReadAsStringAsync())!;
+
+        if (json.Status is -31 or -32)
+            throw new UaaBestsSessionPendingException(json.Status, json.Message!)
+            {
+                QueriedCharts = json.Content!.QueriedCharts,
+                CurrentAccount = json.Content.CurrentAccount
+            };
         if (json.Status < 0)
             throw new UaaRequestException(json.Status, json.Message!);
+
         return json.Content!;
     }
 
     /// <summary>
     /// Get user top 30 score.
     /// </summary>
-    /// <param name="user">User name or 9-digit user code</param>
+    /// <param name="sessionInfo">Session info from <see cref="GetBestsSessionAsync(string)"></see></param>
     /// <param name="overflow">The number of the overflow records below the best30 minimum, range 0-10</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best30 content</returns>
-    public Task<UaaUserBest30Content> GetBest30Async(string user, int overflow = 0,
+    public Task<UaaUserBestsResultContent> GetBestsResultAsync(string sessionInfo, int overflow = 0,
         AuaReplyWith replyWith = AuaReplyWith.None)
-        => GetBest30AsyncCore(user, null, overflow, replyWith);
+        => GetBestsResultAsyncCore(sessionInfo, overflow, replyWith);
 
     /// <summary>
     /// Get user top 30 score.
     /// </summary>
-    /// <param name="usercode">9-digit user code</param>
-    /// <param name="overflow">The number of the overflow records below the best30 minimum, range 0-10</param>
+    /// <param name="sessionInfo">Session info from <see cref="GetBestsSessionAsync(string)"></see></param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best30 content</returns>
-    public Task<UaaUserBest30Content> GetBest30Async(int usercode, int overflow = 0,
-        AuaReplyWith replyWith = AuaReplyWith.None)
-        => GetBest30AsyncCore(null, usercode, overflow, replyWith);
+    public Task<UaaUserBestsResultContent> GetBestsResultAsync(string sessionInfo, AuaReplyWith replyWith)
+        => GetBestsResultAsyncCore(sessionInfo, 0, replyWith);
 
-    /// <summary>
-    /// Get user top 30 score.
-    /// </summary>
-    /// <param name="user">User name or 9-digit user code</param>
-    /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
-    /// <returns>User best30 content</returns>
-    public Task<UaaUserBest30Content> GetBest30Async(string user, AuaReplyWith replyWith)
-        => GetBest30AsyncCore(user, null, 0, replyWith);
-
-    /// <summary>
-    /// Get user top 30 score.
-    /// </summary>
-    /// <param name="usercode">9-digit user code</param>
-    /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
-    /// <returns>User best30 content</returns>
-    public Task<UaaUserBest30Content> GetBest30Async(int usercode, AuaReplyWith replyWith)
-        => GetBest30AsyncCore(null, usercode, 0, replyWith);
-
-    #endregion /user/best30
+    #endregion /user/bests/result
 }

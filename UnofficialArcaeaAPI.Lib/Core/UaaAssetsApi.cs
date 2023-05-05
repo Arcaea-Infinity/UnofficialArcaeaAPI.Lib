@@ -72,17 +72,17 @@ public sealed class UaaAssetsApi
 
     #region /assets/song
 
-    private async Task<byte[]> GetSongAsyncCore(string songnameOrFilename, AuaSongQueryType queryType,
+    private async Task<byte[]> GetSongAsyncCore(string songNameOrFileName, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty)
     {
         var qb = new QueryBuilder();
 
         qb.Add(queryType switch
         {
-            AuaSongQueryType.SongId => "songid",
+            AuaSongQueryType.SongId => "song_id",
             AuaSongQueryType.FileName => "file",
-            _ => "songname"
-        }, songnameOrFilename);
+            _ => "song_name"
+        }, songNameOrFileName);
 
         if (queryType != AuaSongQueryType.FileName)
             qb.Add("difficulty", ((int)difficulty).ToString());
@@ -105,22 +105,62 @@ public sealed class UaaAssetsApi
     /// <summary>
     /// Get song cover.
     /// </summary>
-    /// <param name="songname">Any song name for fuzzy querying</param>
+    /// <param name="songName">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
-    public Task<byte[]> GetSongAsync(string songname, ArcaeaDifficulty difficulty)
-        => GetSongAsyncCore(songname, AuaSongQueryType.SongName, difficulty);
+    public Task<byte[]> GetSongAsync(string songName, ArcaeaDifficulty difficulty)
+        => GetSongAsyncCore(songName, AuaSongQueryType.SongName, difficulty);
 
     #endregion /assets/song
 
-    #region /assets/preview
+    #region /assets/aff
 
-    private async Task<byte[]> GetPreviewAsyncCore(string songname, AuaSongQueryType queryType,
+    private async Task<byte[]> GetAffAsyncCore(string songName, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty)
     {
         var qb = new QueryBuilder();
 
-        qb.Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
+        qb.Add(queryType == AuaSongQueryType.SongId ? "song_id" : "song_name", songName);
+
+        if (queryType != AuaSongQueryType.FileName)
+            qb.Add("difficulty", ((int)difficulty).ToString());
+
+        var resp = await _client.GetAsync("assets/aff" + qb.Build());
+        return await EnsureSuccess(resp);
+    }
+
+    /// <summary>
+    /// Get chart aff.
+    /// </summary>
+    /// <param name="songName">Any song name for fuzzy querying, or sid in Arcaea songlist.</param>
+    /// <param name="queryType">Specify the query type between songname and songid</param>
+    /// <param name="difficulty">Song difficulty</param>
+    /// <returns>Byte array represents the image</returns>
+    /// <remarks>It is not recommended to use this API frequently, and this API only returns affs from the installation package.</remarks>
+    public Task<byte[]> GetAffAsync(string songName, AuaSongQueryType queryType = AuaSongQueryType.SongName,
+        ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
+        => GetAffAsyncCore(songName, queryType, difficulty);
+
+    /// <summary>
+    /// Get chart aff.
+    /// </summary>
+    /// <param name="songName">Any song name for fuzzy querying</param>
+    /// <param name="difficulty">Song difficulty</param>
+    /// <returns>Byte array represents the image</returns>
+    /// <remarks>It is not recommended to use this API frequently, and this API only returns affs from the installation package.</remarks>
+    public Task<byte[]> GetAffAsync(string songName, ArcaeaDifficulty difficulty)
+        => GetAffAsyncCore(songName, AuaSongQueryType.SongName, difficulty);
+
+    #endregion /assets/aff
+
+    #region /assets/preview
+
+    private async Task<byte[]> GetPreviewAsyncCore(string songName, AuaSongQueryType queryType,
+        ArcaeaDifficulty difficulty)
+    {
+        var qb = new QueryBuilder();
+
+        qb.Add(queryType == AuaSongQueryType.SongId ? "song_id" : "song_name", songName);
 
         if (queryType != AuaSongQueryType.FileName)
             qb.Add("difficulty", ((int)difficulty).ToString());
@@ -132,24 +172,24 @@ public sealed class UaaAssetsApi
     /// <summary>
     /// Get chart preview.
     /// </summary>
-    /// <param name="songname">Any song name for fuzzy querying, or sid in Arcaea songlist.</param>
+    /// <param name="songName">Any song name for fuzzy querying, or sid in Arcaea songlist.</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
     /// <remarks>This API is not available for release version of AUA. It is provided by AffPreview.</remarks>
-    public Task<byte[]> GetPreviewAsync(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName,
+    public Task<byte[]> GetPreviewAsync(string songName, AuaSongQueryType queryType = AuaSongQueryType.SongName,
         ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
-        => GetPreviewAsyncCore(songname, queryType, difficulty);
+        => GetPreviewAsyncCore(songName, queryType, difficulty);
 
     /// <summary>
     /// Get chart preview.
     /// </summary>
-    /// <param name="songname">Any song name for fuzzy querying</param>
+    /// <param name="songName">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
     /// <remarks>This API is not available for release version of AUA. It is provided by AffPreview.</remarks>
-    public Task<byte[]> GetPreviewAsync(string songname, ArcaeaDifficulty difficulty)
-        => GetPreviewAsyncCore(songname, AuaSongQueryType.SongName, difficulty);
+    public Task<byte[]> GetPreviewAsync(string songName, ArcaeaDifficulty difficulty)
+        => GetPreviewAsyncCore(songName, AuaSongQueryType.SongName, difficulty);
 
     #endregion /assets/preview
 }
