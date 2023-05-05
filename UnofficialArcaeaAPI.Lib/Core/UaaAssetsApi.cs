@@ -115,7 +115,7 @@ public sealed class UaaAssetsApi
 
     #region /assets/aff
 
-    private async Task<byte[]> GetAffAsyncCore(string songName, AuaSongQueryType queryType,
+    private async Task<string> GetAffAsyncCore(string songName, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty)
     {
         var qb = new QueryBuilder();
@@ -126,7 +126,13 @@ public sealed class UaaAssetsApi
             qb.Add("difficulty", ((int)difficulty).ToString());
 
         var resp = await _client.GetAsync("assets/aff" + qb.Build());
-        return await EnsureSuccess(resp);
+        if (resp.StatusCode != HttpStatusCode.OK)
+        {
+            var errJson = JsonSerializer.Deserialize<UaaResponse>(await resp.Content.ReadAsStringAsync())!;
+            throw new UaaRequestException(errJson.Status, errJson.Message!);
+        }
+
+        return await resp.Content.ReadAsStringAsync();
     }
 
     /// <summary>
@@ -137,7 +143,7 @@ public sealed class UaaAssetsApi
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
     /// <remarks>It is not recommended to use this API frequently, and this API only returns affs from the installation package.</remarks>
-    public Task<byte[]> GetAffAsync(string songName, AuaSongQueryType queryType = AuaSongQueryType.SongName,
+    public Task<string> GetAffAsync(string songName, AuaSongQueryType queryType = AuaSongQueryType.SongName,
         ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
         => GetAffAsyncCore(songName, queryType, difficulty);
 
@@ -148,7 +154,7 @@ public sealed class UaaAssetsApi
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
     /// <remarks>It is not recommended to use this API frequently, and this API only returns affs from the installation package.</remarks>
-    public Task<byte[]> GetAffAsync(string songName, ArcaeaDifficulty difficulty)
+    public Task<string> GetAffAsync(string songName, ArcaeaDifficulty difficulty)
         => GetAffAsyncCore(songName, AuaSongQueryType.SongName, difficulty);
 
     #endregion /assets/aff

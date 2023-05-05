@@ -2,10 +2,10 @@
 
     <PropertyGroup>
         <Title>UnofficialArcaeaAPI.Lib</Title>
-        <PackageVersion>2.2.0</PackageVersion>
-        <Authors>b1acksoil</Authors>
-        <Description>Lib for ArcaeaUnlimitedAPI.</Description>
-        <PackageTags>Arcaea</PackageTags>
+        <PackageVersion>3.0.0</PackageVersion>
+        <Authors>bsdayo</Authors>
+        <Description>API wrapper for UnofficialArcaeaAPI.</Description>
+        <PackageTags>arcaea;api</PackageTags>
 
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -13,8 +13,8 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>1591</NoWarn>
 
-        <PackageProjectUrl>https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI.Lib</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Arcaea-Infinity/ArcaeaUnlimitedAPI.Lib.git</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Arcaea-Infinity/UnofficialArcaeaAPI.Lib</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Arcaea-Infinity/UnofficialArcaeaAPI.Lib.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>

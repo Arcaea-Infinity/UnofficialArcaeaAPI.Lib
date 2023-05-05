@@ -13,6 +13,6 @@ public class UaaUserInfoContent
     [JsonPropertyName("recent_score")]
     public UaaRecord[]? RecentScore { get; set; }
 
-    [JsonPropertyName("songinfo")]
+    [JsonPropertyName("song_info")]
     public UaaChartInfo[]? SongInfo { get; set; }
 }
