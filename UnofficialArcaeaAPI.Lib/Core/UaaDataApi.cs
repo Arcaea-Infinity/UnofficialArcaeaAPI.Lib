@@ -29,7 +29,6 @@ public sealed class UaaDataApi
     /// <summary>
     /// Get the latest Arcaea apk download url.
     /// </summary>
-    /// <endpoint>/data/update</endpoint>
     /// <returns>Update content with url and version</returns>
     public Task<UaaUpdateContent> GetUpdateAsync() => GetUpdateAsyncCore();
 
@@ -62,7 +61,6 @@ public sealed class UaaDataApi
     /// <summary>
     /// Get global play data of a song.
     /// </summary>
-    /// <endpoint>/data/playdata</endpoint>
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
@@ -76,7 +74,6 @@ public sealed class UaaDataApi
     /// <summary>
     /// Get global play data of a song.
     /// </summary>
-    /// <endpoint>/data/playdata</endpoint>
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
@@ -90,7 +87,6 @@ public sealed class UaaDataApi
     /// <summary>
     /// Get global play data of a song.
     /// </summary>
-    /// <endpoint>/data/playdata</endpoint>
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="start">Range of potential start (100*)</param>
@@ -104,7 +100,6 @@ public sealed class UaaDataApi
     /// <summary>
     /// Get global play data of a song.
     /// </summary>
-    /// <endpoint>/data/playdata</endpoint>
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="start">Range of potential start (100*)</param>

@@ -39,7 +39,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user info.
     /// </summary>
-    /// <endpoint>/user/info</endpoint>
     /// <param name="user">User name or 9-digit user code</param>
     /// <param name="recent">The number of recently played songs expected, range 0-7</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
@@ -50,7 +49,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user info.
     /// </summary>
-    /// <endpoint>/user/info</endpoint>
     /// <param name="usercode">9-digit user code</param>
     /// <param name="recent">The number of recently played songs expected, range 0-7</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
@@ -61,7 +59,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user info.
     /// </summary>
-    /// <endpoint>/user/info</endpoint>
     /// <param name="user">User name or 9-digit user code</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>User info content</returns>
@@ -71,7 +68,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user info.
     /// </summary>
-    /// <endpoint>/user/info</endpoint>
     /// <param name="usercode">9-digit user code</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>User info content</returns>
@@ -110,7 +106,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <endpoint>/user/best</endpoint>
     /// <param name="user">User name or 9-digit user code</param>
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
@@ -125,7 +120,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <endpoint>/user/best</endpoint>
     /// <param name="usercode">9-digit user code</param>
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
@@ -140,7 +134,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <endpoint>/user/best</endpoint>
     /// <param name="user">User name or 9-digit user code</param>
     /// <param name="songname">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
@@ -154,7 +147,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <endpoint>/user/best</endpoint>
     /// <param name="usercode">9-digit user code</param>
     /// <param name="songname">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
@@ -168,7 +160,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <endpoint>/user/best</endpoint>
     /// <param name="user">User name or 9-digit user code</param>
     /// <param name="songname">Any song name for fuzzy querying</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
@@ -179,7 +170,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user best score.
     /// </summary>
-    /// <endpoint>/user/best</endpoint>
     /// <param name="usercode">9-digit user code</param>
     /// <param name="songname">Any song name for fuzzy querying</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
@@ -219,7 +209,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user top 30 score.
     /// </summary>
-    /// <endpoint>/user/best30</endpoint>
     /// <param name="user">User name or 9-digit user code</param>
     /// <param name="overflow">The number of the overflow records below the best30 minimum, range 0-10</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
@@ -231,7 +220,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user top 30 score.
     /// </summary>
-    /// <endpoint>/user/best30</endpoint>
     /// <param name="usercode">9-digit user code</param>
     /// <param name="overflow">The number of the overflow records below the best30 minimum, range 0-10</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
@@ -243,7 +231,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user top 30 score.
     /// </summary>
-    /// <endpoint>/user/best30</endpoint>
     /// <param name="user">User name or 9-digit user code</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best30 content</returns>
@@ -253,7 +240,6 @@ public sealed class UaaUserApi
     /// <summary>
     /// Get user top 30 score.
     /// </summary>
-    /// <endpoint>/user/best30</endpoint>
     /// <param name="usercode">9-digit user code</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns>User best30 content</returns>

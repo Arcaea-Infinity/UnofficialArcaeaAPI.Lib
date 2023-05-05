@@ -40,7 +40,6 @@ public sealed class UaaAssetsApi
     /// <summary>
     /// Get partner icon.
     /// </summary>
-    /// <endpoint>/assets/icon</endpoint>
     /// <param name="partner">Partner ID</param>
     /// <param name="awakened">Partner awakened</param>
     /// <returns>Byte array represents the image</returns>
@@ -63,7 +62,6 @@ public sealed class UaaAssetsApi
     /// <summary>
     /// Get partner char image.
     /// </summary>
-    /// <endpoint>/assets/char</endpoint>
     /// <param name="partner">Partner ID</param>
     /// <param name="awakened">Partner awakened</param>
     /// <returns>Byte array represents the image</returns>
@@ -96,7 +94,6 @@ public sealed class UaaAssetsApi
     /// <summary>
     /// Get song cover.
     /// </summary>
-    /// <endpoint>/assets/song</endpoint>
     /// <param name="songnameOrFilename">Any song name for fuzzy querying, or sid in Arcaea songlist, or file name of the cover</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
@@ -108,7 +105,6 @@ public sealed class UaaAssetsApi
     /// <summary>
     /// Get song cover.
     /// </summary>
-    /// <endpoint>/assets/song</endpoint>
     /// <param name="songname">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
@@ -136,7 +132,6 @@ public sealed class UaaAssetsApi
     /// <summary>
     /// Get chart preview.
     /// </summary>
-    /// <endpoint>/assets/preview</endpoint>
     /// <param name="songname">Any song name for fuzzy querying, or sid in Arcaea songlist.</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
@@ -149,7 +144,6 @@ public sealed class UaaAssetsApi
     /// <summary>
     /// Get chart preview.
     /// </summary>
-    /// <endpoint>/assets/preview</endpoint>
     /// <param name="songname">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>

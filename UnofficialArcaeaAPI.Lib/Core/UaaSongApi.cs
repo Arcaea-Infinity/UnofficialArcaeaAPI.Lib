@@ -32,7 +32,6 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get information of a song.
     /// </summary>
-    /// <endpoint>/song/info</endpoint>
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <returns>Song information</returns>
@@ -58,7 +57,6 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get alias(es) of a song.
     /// </summary>
-    /// <endpoint>/song/alias</endpoint>
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <returns>Song alias(es)</returns>
@@ -90,7 +88,6 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get random song.
     /// </summary>
-    /// <endpoint>/song/random</endpoint>
     /// <param name="start">Rating range of start</param>
     /// <param name="end">Rating range of end</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
@@ -102,7 +99,6 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get random song.
     /// </summary>
-    /// <endpoint>/song/random</endpoint>
     /// <param name="start">Rating range of start (9+ => 9p, 10+ => 10p, etc.)</param>
     /// <param name="end">Rating range of end</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
@@ -114,7 +110,6 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get random song.
     /// </summary>
-    /// <endpoint>/song/random</endpoint>
     /// <param name="start">Rating range of start</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
@@ -124,7 +119,6 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get random song.
     /// </summary>
-    /// <endpoint>/song/random</endpoint>
     /// <param name="start">Rating range of start (9+ => 9p, 10+ => 10p, etc.)</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
@@ -134,7 +128,6 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get random song.
     /// </summary>
-    /// <endpoint>/song/random</endpoint>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
     public Task<UaaSongRandomContent> GetRandomAsync(AuaReplyWith replyWith)
@@ -157,7 +150,6 @@ public sealed class UaaSongApi
     /// <summary>
     /// Get songlist.
     /// </summary>
-    /// <endpoint>/song/list</endpoint>
     /// <remarks>It is a large data set, so it is not recommended to use this API frequently.</remarks>
     public Task<UaaSongListContent> GetListAsync() => GetListAsyncCore();
 
