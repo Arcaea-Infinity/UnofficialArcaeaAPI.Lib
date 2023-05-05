@@ -1,4 +1,4 @@
-﻿namespace ArcaeaUnlimitedAPI.Lib.Utils;
+﻿namespace UnofficialArcaeaAPI.Lib.Utils;
 
 public class QueryBuilder
 {

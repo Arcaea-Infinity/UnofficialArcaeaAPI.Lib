@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcaeaUnlimitedAPI.Lib", "ArcaeaUnlimitedAPI.Lib\ArcaeaUnlimitedAPI.Lib.csproj", "{D3A220B7-7DB5-4A60-A3A7-F8DD97EDFDFD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnofficialArcaeaAPI.Lib", "UnofficialArcaeaAPI.Lib\UnofficialArcaeaAPI.Lib.csproj", "{D3A220B7-7DB5-4A60-A3A7-F8DD97EDFDFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

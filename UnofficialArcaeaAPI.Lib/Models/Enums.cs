@@ -1,4 +1,4 @@
-﻿namespace ArcaeaUnlimitedAPI.Lib.Models;
+﻿namespace UnofficialArcaeaAPI.Lib.Models;
 
 [Flags]
 public enum AuaReplyWith

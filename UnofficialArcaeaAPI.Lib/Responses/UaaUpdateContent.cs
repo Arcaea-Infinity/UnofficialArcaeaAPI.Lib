@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ArcaeaUnlimitedAPI.Lib.Responses;
+namespace UnofficialArcaeaAPI.Lib.Responses;
 
 #pragma warning disable CS8618
 
-public class AuaUpdateContent
+public class UaaUpdateContent
 {
     [JsonPropertyName("url")]
     public string Url { get; set; }

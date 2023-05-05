@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ArcaeaUnlimitedAPI.Lib.Models;
+namespace UnofficialArcaeaAPI.Lib.Models;
 
 #pragma warning disable CS8618
 

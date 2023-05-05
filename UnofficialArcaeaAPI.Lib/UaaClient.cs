@@ -1,10 +1,10 @@
-﻿using ArcaeaUnlimitedAPI.Lib.Core;
-using ArcaeaUnlimitedAPI.Lib.Models;
-using ArcaeaUnlimitedAPI.Lib.Responses;
+﻿using UnofficialArcaeaAPI.Lib.Core;
+using UnofficialArcaeaAPI.Lib.Models;
+using UnofficialArcaeaAPI.Lib.Responses;
 
-namespace ArcaeaUnlimitedAPI.Lib;
+namespace UnofficialArcaeaAPI.Lib;
 
-public class AuaClient
+public class UaaClient
 {
     public HttpClient? HttpClient { get; set; }
 
@@ -16,12 +16,12 @@ public class AuaClient
 
     public string ApiUrl { get; set; } = "";
 
-    public AuaUserApi User { get; private set; } = null!;
-    public AuaSongApi Song { get; private set; } = null!;
-    public AuaAssetsApi Assets { get; private set; } = null!;
-    public AuaDataApi Data { get; private set; } = null!;
+    public UaaUserApi User { get; private set; } = null!;
+    public UaaSongApi Song { get; private set; } = null!;
+    public UaaAssetsApi Assets { get; private set; } = null!;
+    public UaaDataApi Data { get; private set; } = null!;
 
-    public AuaClient Initialize()
+    public UaaClient Initialize()
     {
         if (HttpClient is null)
         {
@@ -37,10 +37,10 @@ public class AuaClient
             HttpClient = client;
         }
 
-        User = new AuaUserApi(HttpClient);
-        Song = new AuaSongApi(HttpClient);
-        Assets = new AuaAssetsApi(HttpClient);
-        Data = new AuaDataApi(HttpClient);
+        User = new UaaUserApi(HttpClient);
+        Song = new UaaSongApi(HttpClient);
+        Assets = new UaaAssetsApi(HttpClient);
+        Data = new UaaDataApi(HttpClient);
 
         return this;
     }
@@ -53,7 +53,7 @@ public class AuaClient
     /// <endpoint>/data/update</endpoint>
     /// <returns>Update content with url and version</returns>
     [Obsolete("Use Data.Update instead.")]
-    public Task<AuaUpdateContent> Update() => Data.Update();
+    public Task<UaaUpdateContent> Update() => Data.Update();
 
 
     /// <summary>
@@ -67,7 +67,7 @@ public class AuaClient
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
     [Obsolete("Use Data.Playdata instead.")]
-    public Task<AuaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty, int start, int end)
         => Data.Playdata(songname, queryType, difficulty, start, end);
 
@@ -82,7 +82,7 @@ public class AuaClient
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
     [Obsolete("Use Data.Playdata instead.")]
-    public Task<AuaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty, double start, double end)
         => Data.Playdata(songname, queryType, difficulty, start, end);
 
@@ -96,7 +96,7 @@ public class AuaClient
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
     [Obsolete("Use Data.Playdata instead.")]
-    public Task<AuaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
         int start, int end)
         => Data.Playdata(songname, queryType, start, end);
 
@@ -110,7 +110,7 @@ public class AuaClient
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
     [Obsolete("Use Data.Playdata instead.")]
-    public Task<AuaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
         double start, double end)
         => Data.Playdata(songname, queryType, start, end);
 
@@ -123,7 +123,7 @@ public class AuaClient
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
     [Obsolete("Use Data.Playdata instead.")]
-    public Task<AuaPlaydataContent[]> Playdata(string songname, int start, int end)
+    public Task<UaaPlaydataContent[]> Playdata(string songname, int start, int end)
         => Data.Playdata(songname, start, end);
 
     /// <summary>
@@ -135,7 +135,7 @@ public class AuaClient
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
     [Obsolete("Use Data.Playdata instead.")]
-    public Task<AuaPlaydataContent[]> Playdata(string songname, double start, double end)
+    public Task<UaaPlaydataContent[]> Playdata(string songname, double start, double end)
         => Data.Playdata(songname, start, end);
 
     #endregion Obsoleted

@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ArcaeaUnlimitedAPI.Lib.Models;
+namespace UnofficialArcaeaAPI.Lib.Models;
 
 #pragma warning disable CS8618
 
-public class AuaRecord
+public class UaaRecord
 {
     [JsonPropertyName("user_id")]
     public int? UserId { get; set; }

@@ -1,31 +1,31 @@
 ﻿using System.Text.Json;
-using ArcaeaUnlimitedAPI.Lib.Models;
-using ArcaeaUnlimitedAPI.Lib.Responses;
-using ArcaeaUnlimitedAPI.Lib.Utils;
+using UnofficialArcaeaAPI.Lib.Models;
+using UnofficialArcaeaAPI.Lib.Responses;
+using UnofficialArcaeaAPI.Lib.Utils;
 
-namespace ArcaeaUnlimitedAPI.Lib.Core;
+namespace UnofficialArcaeaAPI.Lib.Core;
 
-public class AuaSongApi
+public class UaaSongApi
 {
     private readonly HttpClient _client;
 
-    public AuaSongApi(HttpClient client)
+    public UaaSongApi(HttpClient client)
     {
         _client = client;
     }
 
     #region /song/info
 
-    private async Task<AuaSongInfoContent> GetInfo(string songname, AuaSongQueryType queryType)
+    private async Task<UaaSongInfoContent> GetInfo(string songname, AuaSongQueryType queryType)
     {
         var qb = new QueryBuilder()
             .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
 
         var resp = await _client.GetAsync("song/info" + qb.Build());
-        var json = JsonSerializer.Deserialize<AuaResponse<AuaSongInfoContent>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<UaaSongInfoContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new AuaException(json.Status, json.Message!);
+            throw new UaaException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -36,7 +36,7 @@ public class AuaSongApi
     /// <param name="songname">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <returns>Song information</returns>
-    public Task<AuaSongInfoContent> Info(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName)
+    public Task<UaaSongInfoContent> Info(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName)
         => GetInfo(songname, queryType);
 
     #endregion /song/info
@@ -48,10 +48,10 @@ public class AuaSongApi
         var qb = new QueryBuilder()
             .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
         var resp = await _client.GetAsync("song/alias" + qb.Build());
-        var json = JsonSerializer.Deserialize<AuaResponse<string[]>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<string[]>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new AuaException(json.Status, json.Message!);
+            throw new UaaException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -69,7 +69,7 @@ public class AuaSongApi
 
     #region /song/random
 
-    private async Task<AuaSongRandomContent> GetRandom(double? startDouble, double? endDouble, string? startString,
+    private async Task<UaaSongRandomContent> GetRandom(double? startDouble, double? endDouble, string? startString,
         string? endString, AuaReplyWith replyWith)
     {
         var qb = new QueryBuilder()
@@ -80,10 +80,10 @@ public class AuaSongApi
             qb.Add("withsonginfo", "true");
 
         var resp = await _client.GetAsync("song/random" + qb.Build());
-        var json = JsonSerializer.Deserialize<AuaResponse<AuaSongRandomContent>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<UaaSongRandomContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new AuaException(json.Status, json.Message!);
+            throw new UaaException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -95,7 +95,7 @@ public class AuaSongApi
     /// <param name="end">Rating range of end</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
-    public Task<AuaSongRandomContent> Random(double start = 0.0, double end = 12.0,
+    public Task<UaaSongRandomContent> Random(double start = 0.0, double end = 12.0,
         AuaReplyWith replyWith = AuaReplyWith.None)
         => GetRandom(start, end, null, null, replyWith);
 
@@ -107,7 +107,7 @@ public class AuaSongApi
     /// <param name="end">Rating range of end</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
-    public Task<AuaSongRandomContent> Random(string start = "0", string end = "12",
+    public Task<UaaSongRandomContent> Random(string start = "0", string end = "12",
         AuaReplyWith replyWith = AuaReplyWith.None)
         => GetRandom(null, null, start, end, replyWith);
 
@@ -118,7 +118,7 @@ public class AuaSongApi
     /// <param name="start">Rating range of start</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
-    public Task<AuaSongRandomContent> Random(double start, AuaReplyWith replyWith)
+    public Task<UaaSongRandomContent> Random(double start, AuaReplyWith replyWith)
         => GetRandom(start, 12.0, null, null, replyWith);
 
     /// <summary>
@@ -128,7 +128,7 @@ public class AuaSongApi
     /// <param name="start">Rating range of start (9+ => 9p, 10+ => 10p, etc.)</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
-    public Task<AuaSongRandomContent> Random(string start, AuaReplyWith replyWith)
+    public Task<UaaSongRandomContent> Random(string start, AuaReplyWith replyWith)
         => GetRandom(null, null, start, "12", replyWith);
 
     /// <summary>
@@ -137,20 +137,20 @@ public class AuaSongApi
     /// <endpoint>/song/random</endpoint>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
-    public Task<AuaSongRandomContent> Random(AuaReplyWith replyWith)
+    public Task<UaaSongRandomContent> Random(AuaReplyWith replyWith)
         => GetRandom(0.0, 12.0, null, null, replyWith);
 
     #endregion /song/random
 
     #region /song/list
 
-    private async Task<AuaSongListContent> GetList()
+    private async Task<UaaSongListContent> GetList()
     {
         var resp = await _client.GetAsync("/song/list");
-        var response = JsonSerializer.Deserialize<AuaResponse<AuaSongListContent>>(
+        var response = JsonSerializer.Deserialize<UaaResponse<UaaSongListContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (response.Status < 0)
-            throw new AuaException(response.Status, response.Message!);
+            throw new UaaException(response.Status, response.Message!);
         return response.Content!;
     }
 
@@ -159,7 +159,7 @@ public class AuaSongApi
     /// </summary>
     /// <endpoint>/song/list</endpoint>
     /// <remarks>It is a large data set, so it is not recommended to use this API frequently.</remarks>
-    public Task<AuaSongListContent> List() => GetList();
+    public Task<UaaSongListContent> List() => GetList();
 
     #endregion /song/list
 }

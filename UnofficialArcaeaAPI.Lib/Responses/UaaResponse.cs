@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ArcaeaUnlimitedAPI.Lib.Responses;
+namespace UnofficialArcaeaAPI.Lib.Responses;
 
-public class AuaResponse<TContent>
+public class UaaResponse<TContent>
 {
     [JsonPropertyName("status")]
     public int Status { get; set; }
@@ -14,7 +14,7 @@ public class AuaResponse<TContent>
     public string? Message { get; set; }
 }
 
-public class AuaResponse
+public class UaaResponse
 {
     [JsonPropertyName("status")]
     public int Status { get; set; }

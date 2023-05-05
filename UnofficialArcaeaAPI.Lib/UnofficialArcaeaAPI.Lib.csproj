@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Title>ArcaeaUnlimitedAPI.Lib</Title>
+        <Title>UnofficialArcaeaAPI.Lib</Title>
         <PackageVersion>2.2.0</PackageVersion>
         <Authors>b1acksoil</Authors>
         <Description>Lib for ArcaeaUnlimitedAPI.</Description>

@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
-using ArcaeaUnlimitedAPI.Lib.Models;
+using UnofficialArcaeaAPI.Lib.Models;
 
-namespace ArcaeaUnlimitedAPI.Lib.Responses;
+namespace UnofficialArcaeaAPI.Lib.Responses;
 
 #pragma warning disable CS8618
 
-public class AuaUserBest30Content
+public class UaaUserBest30Content
 {
     [JsonPropertyName("best30_avg")]
     public double Best30Avg { get; set; }
@@ -17,20 +17,20 @@ public class AuaUserBest30Content
     public AuaAccountInfo AccountInfo { get; set; }
 
     [JsonPropertyName("best30_list")]
-    public AuaRecord[] Best30List { get; set; }
+    public UaaRecord[] Best30List { get; set; }
 
     [JsonPropertyName("best30_songinfo")]
-    public AuaChartInfo[]? Best30SongInfo { get; set; }
+    public UaaChartInfo[]? Best30SongInfo { get; set; }
 
     [JsonPropertyName("recent_score")]
-    public AuaRecord? RecentScore { get; set; }
+    public UaaRecord? RecentScore { get; set; }
 
     [JsonPropertyName("recent_songinfo")]
-    public AuaChartInfo? RecentSongInfo { get; set; }
+    public UaaChartInfo? RecentSongInfo { get; set; }
 
     [JsonPropertyName("best30_overflow")]
-    public AuaRecord[]? Best30Overflow { get; set; }
+    public UaaRecord[]? Best30Overflow { get; set; }
 
     [JsonPropertyName("best30_overflow_songinfo")]
-    public AuaChartInfo[]? Best30OverflowSongInfo { get; set; }
+    public UaaChartInfo[]? Best30OverflowSongInfo { get; set; }
 }

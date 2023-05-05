@@ -1,28 +1,28 @@
 ﻿using System.Text.Json;
-using ArcaeaUnlimitedAPI.Lib.Models;
-using ArcaeaUnlimitedAPI.Lib.Responses;
-using ArcaeaUnlimitedAPI.Lib.Utils;
+using UnofficialArcaeaAPI.Lib.Models;
+using UnofficialArcaeaAPI.Lib.Responses;
+using UnofficialArcaeaAPI.Lib.Utils;
 
-namespace ArcaeaUnlimitedAPI.Lib.Core;
+namespace UnofficialArcaeaAPI.Lib.Core;
 
-public class AuaDataApi
+public class UaaDataApi
 {
     private readonly HttpClient _client;
 
-    public AuaDataApi(HttpClient client)
+    public UaaDataApi(HttpClient client)
     {
         _client = client;
     }
 
     #region /data/update
 
-    private async Task<AuaUpdateContent> GetUpdate()
+    private async Task<UaaUpdateContent> GetUpdate()
     {
         var resp = await _client.GetAsync("/data/update");
-        var json = JsonSerializer.Deserialize<AuaResponse<AuaUpdateContent>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<UaaUpdateContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new AuaException(json.Status, json.Message!);
+            throw new UaaException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -31,13 +31,13 @@ public class AuaDataApi
     /// </summary>
     /// <endpoint>/data/update</endpoint>
     /// <returns>Update content with url and version</returns>
-    public Task<AuaUpdateContent> Update() => GetUpdate();
+    public Task<UaaUpdateContent> Update() => GetUpdate();
 
     #endregion /data/update
 
     #region /data/playdata
 
-    private static async Task<AuaPlaydataContent[]> GetPlaydata(HttpClient client, string songname,
+    private static async Task<UaaPlaydataContent[]> GetPlaydata(HttpClient client, string songname,
         AuaSongQueryType queryType, ArcaeaDifficulty difficulty,
         int? startInt, int? endInt, double? startDouble, double? endDouble)
     {
@@ -52,10 +52,10 @@ public class AuaDataApi
                 : ((int)Math.Round(endDouble.Value * 100)).ToString())!);
 
         var resp = await client.GetAsync("playdata" + qb.Build());
-        var json = JsonSerializer.Deserialize<AuaResponse<AuaPlaydataContent[]>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<UaaPlaydataContent[]>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new AuaException(json.Status, json.Message!);
+            throw new UaaException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -69,7 +69,7 @@ public class AuaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<AuaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public async Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty, int start, int end)
         => await GetPlaydata(_client, songname, queryType, difficulty, start, end, null, null);
 
@@ -83,7 +83,7 @@ public class AuaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<AuaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public async Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty, double start, double end)
         => await GetPlaydata(_client, songname, queryType, difficulty, null, null, start, end);
 
@@ -96,7 +96,7 @@ public class AuaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<AuaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public async Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
         int start, int end)
         => await GetPlaydata(_client, songname, queryType, ArcaeaDifficulty.Future, start, end, null,
             null);
@@ -110,7 +110,7 @@ public class AuaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<AuaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public async Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
         double start, double end)
         => await GetPlaydata(_client, songname, queryType, ArcaeaDifficulty.Future, null, null, start,
             end);
@@ -123,7 +123,7 @@ public class AuaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<AuaPlaydataContent[]> Playdata(string songname, int start, int end)
+    public async Task<UaaPlaydataContent[]> Playdata(string songname, int start, int end)
         => await GetPlaydata(_client, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future,
             start, end, null, null);
 
@@ -135,7 +135,7 @@ public class AuaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<AuaPlaydataContent[]> Playdata(string songname, double start, double end)
+    public async Task<UaaPlaydataContent[]> Playdata(string songname, double start, double end)
         => await GetPlaydata(_client, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future,
             null, null, start, end);
 
@@ -143,7 +143,7 @@ public class AuaDataApi
 
     #region /data/theory
 
-    private async Task<AuaUserBest30Content> GetTheory(string version,
+    private async Task<UaaUserBest30Content> GetTheory(string version,
         int overflow, AuaReplyWith replyWith)
     {
         var qb = new QueryBuilder()
@@ -156,10 +156,10 @@ public class AuaDataApi
             qb.Add("withsonginfo", "true");
 
         var resp = await _client.GetAsync("data/theory" + qb.Build());
-        var json = JsonSerializer.Deserialize<AuaResponse<AuaUserBest30Content>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBest30Content>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new AuaException(json.Status, json.Message!);
+            throw new UaaException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -171,7 +171,7 @@ public class AuaDataApi
     /// <param name="overflow">The number of the overflow records below the best30 minimum, range 0-10</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns></returns>
-    public Task<AuaUserBest30Content> Theory(string version,
+    public Task<UaaUserBest30Content> Theory(string version,
         int overflow = 0, AuaReplyWith replyWith = AuaReplyWith.None)
         => GetTheory(version, overflow, replyWith);
 
@@ -186,10 +186,10 @@ public class AuaDataApi
         qb.Add("difficulty", ((int)difficulty).ToString());
 
         var resp = await _client.GetAsync("data/theory" + qb.Build());
-        var json = JsonSerializer.Deserialize<AuaResponse<int[][]>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<int[][]>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new AuaException(json.Status, json.Message!);
+            throw new UaaException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -246,10 +246,10 @@ public class AuaDataApi
         if (timestamp is not null) qb.Add("timestamp", timestamp.ToString()!);
 
         var resp = await _client.GetAsync("data/challenge" + qb.Build());
-        var json = JsonSerializer.Deserialize<AuaResponse<string>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<string>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new AuaException(json.Status, json.Message!);
+            throw new UaaException(json.Status, json.Message!);
         return json.Content!;
     }
 

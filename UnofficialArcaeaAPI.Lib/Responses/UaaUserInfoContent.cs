@@ -1,18 +1,18 @@
 ﻿using System.Text.Json.Serialization;
-using ArcaeaUnlimitedAPI.Lib.Models;
+using UnofficialArcaeaAPI.Lib.Models;
 
-namespace ArcaeaUnlimitedAPI.Lib.Responses;
+namespace UnofficialArcaeaAPI.Lib.Responses;
 
 #pragma warning disable CS8618
 
-public class AuaUserInfoContent
+public class UaaUserInfoContent
 {
     [JsonPropertyName("account_info")]
     public AuaAccountInfo AccountInfo { get; set; }
 
     [JsonPropertyName("recent_score")]
-    public AuaRecord[]? RecentScore { get; set; }
+    public UaaRecord[]? RecentScore { get; set; }
 
     [JsonPropertyName("songinfo")]
-    public AuaChartInfo[]? SongInfo { get; set; }
+    public UaaChartInfo[]? SongInfo { get; set; }
 }

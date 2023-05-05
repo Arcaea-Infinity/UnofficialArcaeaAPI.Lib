@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ArcaeaUnlimitedAPI.Lib.Models;
+namespace UnofficialArcaeaAPI.Lib.Models;
 
 #pragma warning disable CS8618
 
-public class AuaChartInfo
+public class UaaChartInfo
 {
     [JsonPropertyName("name_en")]
     public string NameEn { get; set; }

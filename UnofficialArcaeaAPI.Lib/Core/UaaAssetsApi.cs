@@ -1,16 +1,16 @@
 ﻿using System.Net;
 using System.Text.Json;
-using ArcaeaUnlimitedAPI.Lib.Models;
-using ArcaeaUnlimitedAPI.Lib.Responses;
-using ArcaeaUnlimitedAPI.Lib.Utils;
+using UnofficialArcaeaAPI.Lib.Models;
+using UnofficialArcaeaAPI.Lib.Responses;
+using UnofficialArcaeaAPI.Lib.Utils;
 
-namespace ArcaeaUnlimitedAPI.Lib.Core;
+namespace UnofficialArcaeaAPI.Lib.Core;
 
-public class AuaAssetsApi
+public class UaaAssetsApi
 {
     private readonly HttpClient _client;
 
-    public AuaAssetsApi(HttpClient client)
+    public UaaAssetsApi(HttpClient client)
     {
         _client = client;
     }
@@ -21,8 +21,8 @@ public class AuaAssetsApi
     {
         if (resp.StatusCode != HttpStatusCode.OK)
         {
-            var errJson = JsonSerializer.Deserialize<AuaResponse>(await resp.Content.ReadAsStringAsync())!;
-            throw new AuaException(errJson.Status, errJson.Message!);
+            var errJson = JsonSerializer.Deserialize<UaaResponse>(await resp.Content.ReadAsStringAsync())!;
+            throw new UaaException(errJson.Status, errJson.Message!);
         }
 
         return await resp.Content.ReadAsByteArrayAsync();
