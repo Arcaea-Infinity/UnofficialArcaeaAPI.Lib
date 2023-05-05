@@ -22,7 +22,7 @@ public class UaaAssetsApi
         if (resp.StatusCode != HttpStatusCode.OK)
         {
             var errJson = JsonSerializer.Deserialize<UaaResponse>(await resp.Content.ReadAsStringAsync())!;
-            throw new UaaException(errJson.Status, errJson.Message!);
+            throw new UaaRequestException(errJson.Status, errJson.Message!);
         }
 
         return await resp.Content.ReadAsByteArrayAsync();

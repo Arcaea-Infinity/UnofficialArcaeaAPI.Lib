@@ -25,7 +25,7 @@ public class UaaSongApi
         var json = JsonSerializer.Deserialize<UaaResponse<UaaSongInfoContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new UaaException(json.Status, json.Message!);
+            throw new UaaRequestException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -51,7 +51,7 @@ public class UaaSongApi
         var json = JsonSerializer.Deserialize<UaaResponse<string[]>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new UaaException(json.Status, json.Message!);
+            throw new UaaRequestException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -83,7 +83,7 @@ public class UaaSongApi
         var json = JsonSerializer.Deserialize<UaaResponse<UaaSongRandomContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new UaaException(json.Status, json.Message!);
+            throw new UaaRequestException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -150,7 +150,7 @@ public class UaaSongApi
         var response = JsonSerializer.Deserialize<UaaResponse<UaaSongListContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (response.Status < 0)
-            throw new UaaException(response.Status, response.Message!);
+            throw new UaaRequestException(response.Status, response.Message!);
         return response.Content!;
     }
 

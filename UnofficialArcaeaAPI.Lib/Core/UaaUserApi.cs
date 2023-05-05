@@ -32,7 +32,7 @@ public class UaaUserApi
         var json = JsonSerializer.Deserialize<UaaResponse<UaaUserInfoContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new UaaException(json.Status, json.Message!);
+            throw new UaaRequestException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -103,7 +103,7 @@ public class UaaUserApi
         var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBestContent>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new UaaException(json.Status, json.Message!);
+            throw new UaaRequestException(json.Status, json.Message!);
         return json.Content!;
     }
 
@@ -212,7 +212,7 @@ public class UaaUserApi
         var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBest30Content>>(
             await resp.Content.ReadAsStringAsync())!;
         if (json.Status < 0)
-            throw new UaaException(json.Status, json.Message!);
+            throw new UaaRequestException(json.Status, json.Message!);
         return json.Content!;
     }
 

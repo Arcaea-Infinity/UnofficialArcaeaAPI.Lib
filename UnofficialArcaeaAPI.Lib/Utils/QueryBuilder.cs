@@ -1,6 +1,6 @@
 ﻿namespace UnofficialArcaeaAPI.Lib.Utils;
 
-public class QueryBuilder
+internal sealed class QueryBuilder
 {
     private readonly Dictionary<string, string> _params = new();
 
