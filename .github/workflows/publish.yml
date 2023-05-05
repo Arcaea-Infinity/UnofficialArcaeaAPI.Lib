@@ -20,9 +20,9 @@ jobs:
         id: publish
         uses: alirezanet/publish-nuget@v3.0.4
         with:
-          PROJECT_FILE_PATH: ArcaeaUnlimitedAPI.Lib/ArcaeaUnlimitedAPI.Lib.csproj
-          PACKAGE_NAME: ArcaeaUnlimitedAPI.Lib
-          VERSION_FILE_PATH: ArcaeaUnlimitedAPI.Lib/ArcaeaUnlimitedAPI.Lib.csproj
+          PROJECT_FILE_PATH: UnofficialArcaeaAPI.Lib/UnofficialArcaeaAPI.Lib.csproj
+          PACKAGE_NAME: UnofficialArcaeaAPI.Lib
+          VERSION_FILE_PATH: UnofficialArcaeaAPI.Lib/UnofficialArcaeaAPI.Lib.csproj
           VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
           TAG_COMMIT: true
           TAG_FORMAT: v*
