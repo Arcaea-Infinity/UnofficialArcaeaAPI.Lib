@@ -5,18 +5,18 @@ using UnofficialArcaeaAPI.Lib.Utils;
 
 namespace UnofficialArcaeaAPI.Lib.Core;
 
-public class UaaDataApi
+public sealed class UaaDataApi
 {
     private readonly HttpClient _client;
 
-    public UaaDataApi(HttpClient client)
+    internal UaaDataApi(HttpClient client)
     {
         _client = client;
     }
 
     #region /data/update
 
-    private async Task<UaaUpdateContent> GetUpdate()
+    private async Task<UaaUpdateContent> GetUpdateAsyncCore()
     {
         var resp = await _client.GetAsync("/data/update");
         var json = JsonSerializer.Deserialize<UaaResponse<UaaUpdateContent>>(
@@ -31,13 +31,13 @@ public class UaaDataApi
     /// </summary>
     /// <endpoint>/data/update</endpoint>
     /// <returns>Update content with url and version</returns>
-    public Task<UaaUpdateContent> Update() => GetUpdate();
+    public Task<UaaUpdateContent> GetUpdateAsync() => GetUpdateAsyncCore();
 
     #endregion /data/update
 
     #region /data/playdata
 
-    private static async Task<UaaPlaydataContent[]> GetPlaydata(HttpClient client, string songname,
+    private static async Task<UaaPlaydataContent[]> GetPlaydataAsyncCore(HttpClient client, string songname,
         AuaSongQueryType queryType, ArcaeaDifficulty difficulty,
         int? startInt, int? endInt, double? startDouble, double? endDouble)
     {
@@ -69,9 +69,9 @@ public class UaaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public async Task<UaaPlaydataContent[]> GetPlaydataAsync(string songname, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty, int start, int end)
-        => await GetPlaydata(_client, songname, queryType, difficulty, start, end, null, null);
+        => await GetPlaydataAsyncCore(_client, songname, queryType, difficulty, start, end, null, null);
 
     /// <summary>
     /// Get global play data of a song.
@@ -83,9 +83,9 @@ public class UaaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public async Task<UaaPlaydataContent[]> GetPlaydataAsync(string songname, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty, double start, double end)
-        => await GetPlaydata(_client, songname, queryType, difficulty, null, null, start, end);
+        => await GetPlaydataAsyncCore(_client, songname, queryType, difficulty, null, null, start, end);
 
     /// <summary>
     /// Get global play data of a song.
@@ -96,9 +96,9 @@ public class UaaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public async Task<UaaPlaydataContent[]> GetPlaydataAsync(string songname, AuaSongQueryType queryType,
         int start, int end)
-        => await GetPlaydata(_client, songname, queryType, ArcaeaDifficulty.Future, start, end, null,
+        => await GetPlaydataAsyncCore(_client, songname, queryType, ArcaeaDifficulty.Future, start, end, null,
             null);
 
     /// <summary>
@@ -110,9 +110,9 @@ public class UaaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<UaaPlaydataContent[]> Playdata(string songname, AuaSongQueryType queryType,
+    public async Task<UaaPlaydataContent[]> GetPlaydataAsync(string songname, AuaSongQueryType queryType,
         double start, double end)
-        => await GetPlaydata(_client, songname, queryType, ArcaeaDifficulty.Future, null, null, start,
+        => await GetPlaydataAsyncCore(_client, songname, queryType, ArcaeaDifficulty.Future, null, null, start,
             end);
 
     /// <summary>
@@ -123,8 +123,8 @@ public class UaaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<UaaPlaydataContent[]> Playdata(string songname, int start, int end)
-        => await GetPlaydata(_client, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future,
+    public async Task<UaaPlaydataContent[]> GetPlaydataAsync(string songname, int start, int end)
+        => await GetPlaydataAsyncCore(_client, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future,
             start, end, null, null);
 
     /// <summary>
@@ -135,15 +135,15 @@ public class UaaDataApi
     /// <param name="start">Range of potential start (100*)</param>
     /// <param name="end">Range of potential end (100*)</param>
     /// <returns>Play data content</returns>
-    public async Task<UaaPlaydataContent[]> Playdata(string songname, double start, double end)
-        => await GetPlaydata(_client, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future,
+    public async Task<UaaPlaydataContent[]> GetPlaydataAsync(string songname, double start, double end)
+        => await GetPlaydataAsyncCore(_client, songname, AuaSongQueryType.SongName, ArcaeaDifficulty.Future,
             null, null, start, end);
 
     #endregion /data/playdata
 
     #region /data/theory
 
-    private async Task<UaaUserBest30Content> GetTheory(string version,
+    private async Task<UaaUserBest30Content> GetTheoryAsyncCore(string version,
         int overflow, AuaReplyWith replyWith)
     {
         var qb = new QueryBuilder()
@@ -171,15 +171,15 @@ public class UaaDataApi
     /// <param name="overflow">The number of the overflow records below the best30 minimum, range 0-10</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns></returns>
-    public Task<UaaUserBest30Content> Theory(string version,
+    public Task<UaaUserBest30Content> GetTheoryAsync(string version,
         int overflow = 0, AuaReplyWith replyWith = AuaReplyWith.None)
-        => GetTheory(version, overflow, replyWith);
+        => GetTheoryAsyncCore(version, overflow, replyWith);
 
     #endregion /data/theory
 
     #region /data/density
 
-    private async Task<int[][]> GetDensity(string songname, AuaSongQueryType queryType, ArcaeaDifficulty difficulty)
+    private async Task<int[][]> GetDensityAsyncCore(string songname, AuaSongQueryType queryType, ArcaeaDifficulty difficulty)
     {
         var qb = new QueryBuilder()
             .Add(queryType == AuaSongQueryType.SongId ? "songid" : "songname", songname);
@@ -210,9 +210,9 @@ public class UaaDataApi
     /// </list>
     /// </returns>
     /// <remarks>It is a large data set, so it is not recommended to use this API frequently.</remarks>
-    public Task<int[][]> Density(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName,
+    public Task<int[][]> GetDensityAsync(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName,
         ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
-        => GetDensity(songname, queryType, difficulty);
+        => GetDensityAsyncCore(songname, queryType, difficulty);
 
     /// <summary>
     /// Get song play density.
@@ -230,14 +230,14 @@ public class UaaDataApi
     /// </list>
     /// </returns>
     /// <remarks>It is a large data set, so it is not recommended to use this API frequently.</remarks>
-    public Task<int[][]> Density(string songname, ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
-        => GetDensity(songname, AuaSongQueryType.SongName, difficulty);
+    public Task<int[][]> GetDensityAsync(string songname, ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
+        => GetDensityAsyncCore(songname, AuaSongQueryType.SongName, difficulty);
 
     #endregion /data/density
 
     #region /data/challenge
 
-    private async Task<string> GetChallenge(string path, string? body, long? timestamp)
+    private async Task<string> GetChallengeAsyncCore(string path, string? body, long? timestamp)
     {
         var qb = new QueryBuilder()
             .Add("path", path);
@@ -261,8 +261,8 @@ public class UaaDataApi
     /// <param name="timestamp">Request timestamp.</param>
     /// <returns>Challenge string.</returns>
     /// <remarks>It is designed for the release version of AUA, and not available for the release version.</remarks>
-    public Task<string> Challenge(string path, string? body = null, long? timestamp = null)
-        => GetChallenge(path, body, timestamp);
+    public Task<string> GetChallengeAsync(string path, string? body = null, long? timestamp = null)
+        => GetChallengeAsyncCore(path, body, timestamp);
 
     /// <summary>
     /// Get challenge of a specified arcapi path.
@@ -271,8 +271,8 @@ public class UaaDataApi
     /// <param name="timestamp">Request timestamp.</param>
     /// <returns>Challenge string.</returns>
     /// <remarks>It is designed for the release version of AUA, and not available for the release version.</remarks>
-    public Task<string> Challenge(string path, long? timestamp = null)
-        => GetChallenge(path, null, timestamp);
+    public Task<string> GetChallengeAsync(string path, long? timestamp = null)
+        => GetChallengeAsyncCore(path, null, timestamp);
 
     #endregion /data/challenge
 }

@@ -6,18 +6,16 @@ using UnofficialArcaeaAPI.Lib.Utils;
 
 namespace UnofficialArcaeaAPI.Lib.Core;
 
-public class UaaAssetsApi
+public sealed class UaaAssetsApi
 {
     private readonly HttpClient _client;
 
-    public UaaAssetsApi(HttpClient client)
+    internal UaaAssetsApi(HttpClient client)
     {
         _client = client;
     }
 
-    #region /assets/icon
-
-    private async Task<byte[]> EnsureSuccess(HttpResponseMessage resp)
+    private static async Task<byte[]> EnsureSuccess(HttpResponseMessage resp)
     {
         if (resp.StatusCode != HttpStatusCode.OK)
         {
@@ -28,7 +26,9 @@ public class UaaAssetsApi
         return await resp.Content.ReadAsByteArrayAsync();
     }
 
-    private async Task<byte[]> GetIcon(int partner, bool awakened)
+    #region /assets/icon
+
+    private async Task<byte[]> GetIconAsyncCore(int partner, bool awakened)
     {
         var qb = new QueryBuilder()
             .Add("partner", partner.ToString())
@@ -44,14 +44,14 @@ public class UaaAssetsApi
     /// <param name="partner">Partner ID</param>
     /// <param name="awakened">Partner awakened</param>
     /// <returns>Byte array represents the image</returns>
-    public Task<byte[]> Icon(int partner, bool awakened = false)
-        => GetIcon(partner, awakened);
+    public Task<byte[]> GetIconAsync(int partner, bool awakened = false)
+        => GetIconAsyncCore(partner, awakened);
 
     #endregion /assets/icon
 
     #region /assets/char
 
-    private async Task<byte[]> GetChar(int partner, bool awakened)
+    private async Task<byte[]> GetCharAsyncCore(int partner, bool awakened)
     {
         var qb = new QueryBuilder()
             .Add("partner", partner.ToString())
@@ -67,14 +67,14 @@ public class UaaAssetsApi
     /// <param name="partner">Partner ID</param>
     /// <param name="awakened">Partner awakened</param>
     /// <returns>Byte array represents the image</returns>
-    public Task<byte[]> Char(int partner, bool awakened = false)
-        => GetChar(partner, awakened);
+    public Task<byte[]> GetCharAsync(int partner, bool awakened = false)
+        => GetCharAsyncCore(partner, awakened);
 
     #endregion /assets/char
 
     #region /assets/song
 
-    private async Task<byte[]> GetSong(string songnameOrFilename, AuaSongQueryType queryType,
+    private async Task<byte[]> GetSongAsyncCore(string songnameOrFilename, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty)
     {
         var qb = new QueryBuilder();
@@ -101,9 +101,9 @@ public class UaaAssetsApi
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
-    public Task<byte[]> Song(string songnameOrFilename, AuaSongQueryType queryType = AuaSongQueryType.SongName,
+    public Task<byte[]> GetSongAsync(string songnameOrFilename, AuaSongQueryType queryType = AuaSongQueryType.SongName,
         ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
-        => GetSong(songnameOrFilename, queryType, difficulty);
+        => GetSongAsyncCore(songnameOrFilename, queryType, difficulty);
 
     /// <summary>
     /// Get song cover.
@@ -112,14 +112,14 @@ public class UaaAssetsApi
     /// <param name="songname">Any song name for fuzzy querying</param>
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
-    public Task<byte[]> Song(string songname, ArcaeaDifficulty difficulty)
-        => GetSong(songname, AuaSongQueryType.SongName, difficulty);
+    public Task<byte[]> GetSongAsync(string songname, ArcaeaDifficulty difficulty)
+        => GetSongAsyncCore(songname, AuaSongQueryType.SongName, difficulty);
 
     #endregion /assets/song
 
     #region /assets/preview
 
-    private async Task<byte[]> GetPreview(string songname, AuaSongQueryType queryType,
+    private async Task<byte[]> GetPreviewAsyncCore(string songname, AuaSongQueryType queryType,
         ArcaeaDifficulty difficulty)
     {
         var qb = new QueryBuilder();
@@ -142,9 +142,9 @@ public class UaaAssetsApi
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
     /// <remarks>This API is not available for release version of AUA. It is provided by AffPreview.</remarks>
-    public Task<byte[]> Preview(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName,
+    public Task<byte[]> GetPreviewAsync(string songname, AuaSongQueryType queryType = AuaSongQueryType.SongName,
         ArcaeaDifficulty difficulty = ArcaeaDifficulty.Future)
-        => GetPreview(songname, queryType, difficulty);
+        => GetPreviewAsyncCore(songname, queryType, difficulty);
 
     /// <summary>
     /// Get chart preview.
@@ -154,8 +154,8 @@ public class UaaAssetsApi
     /// <param name="difficulty">Song difficulty</param>
     /// <returns>Byte array represents the image</returns>
     /// <remarks>This API is not available for release version of AUA. It is provided by AffPreview.</remarks>
-    public Task<byte[]> Preview(string songname, ArcaeaDifficulty difficulty)
-        => GetPreview(songname, AuaSongQueryType.SongName, difficulty);
+    public Task<byte[]> GetPreviewAsync(string songname, ArcaeaDifficulty difficulty)
+        => GetPreviewAsyncCore(songname, AuaSongQueryType.SongName, difficulty);
 
     #endregion /assets/preview
 }
