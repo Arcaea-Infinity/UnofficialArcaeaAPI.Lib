@@ -15,17 +15,6 @@ public sealed class UaaAssetsApi
         _client = client;
     }
 
-    private static async Task<byte[]> EnsureSuccess(HttpResponseMessage resp)
-    {
-        if (resp.StatusCode != HttpStatusCode.OK)
-        {
-            var errJson = JsonSerializer.Deserialize<UaaResponse>(await resp.Content.ReadAsStringAsync())!;
-            throw new UaaRequestException(errJson.Status, errJson.Message!);
-        }
-
-        return await resp.Content.ReadAsByteArrayAsync();
-    }
-
     #region /assets/icon
 
     private async Task<byte[]> GetIconAsyncCore(int partner, bool awakened)
@@ -34,7 +23,7 @@ public sealed class UaaAssetsApi
             .Add("partner", partner.ToString())
             .Add("awakened", awakened.ToString());
         var resp = await _client.GetAsync("assets/icon" + qb.Build());
-        return await EnsureSuccess(resp);
+        return await resp.EnsureDataSuccess();
     }
 
     /// <summary>
@@ -56,7 +45,7 @@ public sealed class UaaAssetsApi
             .Add("partner", partner.ToString())
             .Add("awakened", awakened.ToString());
         var resp = await _client.GetAsync("assets/char" + qb.Build());
-        return await EnsureSuccess(resp);
+        return await resp.EnsureDataSuccess();
     }
 
     /// <summary>
@@ -88,7 +77,7 @@ public sealed class UaaAssetsApi
             qb.Add("difficulty", ((int)difficulty).ToString());
 
         var resp = await _client.GetAsync("assets/song" + qb.Build());
-        return await EnsureSuccess(resp);
+        return await resp.EnsureDataSuccess();
     }
 
     /// <summary>
@@ -172,7 +161,7 @@ public sealed class UaaAssetsApi
             qb.Add("difficulty", ((int)difficulty).ToString());
 
         var resp = await _client.GetAsync("assets/preview" + qb.Build());
-        return await EnsureSuccess(resp);
+        return await resp.EnsureDataSuccess();
     }
 
     /// <summary>

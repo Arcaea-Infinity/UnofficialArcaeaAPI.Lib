@@ -8,6 +8,7 @@ public sealed class UaaClient
     public UaaSongApi Song { get; }
     public UaaAssetsApi Assets { get; }
     public UaaDataApi Data { get; }
+    public UaaImageApi Image { get; }
 
     public UaaClient(UaaClientOptions options)
     {
@@ -40,5 +41,6 @@ public sealed class UaaClient
         Song = new UaaSongApi(client);
         Assets = new UaaAssetsApi(client);
         Data = new UaaDataApi(client);
+        Image = new UaaImageApi(client);
     }
 }
