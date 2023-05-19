@@ -16,10 +16,10 @@ public sealed class UaaSongApi
 
     #region /song/info
 
-    private async Task<UaaSongInfoContent> GetInfoAsyncCore(string songName, AuaSongQueryType queryType)
+    private async Task<UaaSongInfoContent> GetInfoAsyncCore(string songName, UaaSongQueryType queryType)
     {
         var qb = new QueryBuilder()
-            .Add(queryType == AuaSongQueryType.SongId ? "song_id" : "song_name", songName);
+            .Add(queryType == UaaSongQueryType.SongId ? "song_id" : "song_name", songName);
 
         var resp = await _client.GetAsync("song/info" + qb.Build());
         var json = JsonSerializer.Deserialize<UaaResponse<UaaSongInfoContent>>(
@@ -35,17 +35,17 @@ public sealed class UaaSongApi
     /// <param name="songName">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <returns>Song information</returns>
-    public Task<UaaSongInfoContent> GetInfoAsync(string songName, AuaSongQueryType queryType = AuaSongQueryType.SongName)
+    public Task<UaaSongInfoContent> GetInfoAsync(string songName, UaaSongQueryType queryType = UaaSongQueryType.SongName)
         => GetInfoAsyncCore(songName, queryType);
 
     #endregion /song/info
 
     #region /song/alias
 
-    private async Task<string[]> GetAliasAsyncCore(string songName, AuaSongQueryType queryType)
+    private async Task<string[]> GetAliasAsyncCore(string songName, UaaSongQueryType queryType)
     {
         var qb = new QueryBuilder()
-            .Add(queryType == AuaSongQueryType.SongId ? "song_id" : "song_name", songName);
+            .Add(queryType == UaaSongQueryType.SongId ? "song_id" : "song_name", songName);
         var resp = await _client.GetAsync("song/alias" + qb.Build());
         var json = JsonSerializer.Deserialize<UaaResponse<string[]>>(
             await resp.Content.ReadAsStringAsync())!;
@@ -60,7 +60,7 @@ public sealed class UaaSongApi
     /// <param name="songName">Any song name for fuzzy querying or sid in Arcaea songlist</param>
     /// <param name="queryType">Specify the query type between songname and songid</param>
     /// <returns>Song alias(es)</returns>
-    public Task<string[]> GetAliasAsync(string songName, AuaSongQueryType queryType = AuaSongQueryType.SongName)
+    public Task<string[]> GetAliasAsync(string songName, UaaSongQueryType queryType = UaaSongQueryType.SongName)
         => GetAliasAsyncCore(songName, queryType);
 
     #endregion /song/alias
@@ -68,13 +68,13 @@ public sealed class UaaSongApi
     #region /song/random
 
     private async Task<UaaSongRandomContent> GetRandomAsyncCore(double? startDouble, double? endDouble, string? startString,
-        string? endString, AuaReplyWith replyWith)
+        string? endString, UaaReplyWith replyWith)
     {
         var qb = new QueryBuilder()
             .Add("start", startString ?? startDouble.ToString()!)
             .Add("end", endString ?? endDouble.ToString()!);
 
-        if (replyWith.HasFlag(AuaReplyWith.SongInfo))
+        if (replyWith.HasFlag(UaaReplyWith.SongInfo))
             qb.Add("with_song_info", "true");
 
         var resp = await _client.GetAsync("song/random" + qb.Build());
@@ -93,7 +93,7 @@ public sealed class UaaSongApi
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
     public Task<UaaSongRandomContent> GetRandomAsync(double start = 0.0, double end = 12.0,
-        AuaReplyWith replyWith = AuaReplyWith.None)
+        UaaReplyWith replyWith = UaaReplyWith.None)
         => GetRandomAsyncCore(start, end, null, null, replyWith);
 
     /// <summary>
@@ -104,7 +104,7 @@ public sealed class UaaSongApi
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
     public Task<UaaSongRandomContent> GetRandomAsync(string start = "0", string end = "12",
-        AuaReplyWith replyWith = AuaReplyWith.None)
+        UaaReplyWith replyWith = UaaReplyWith.None)
         => GetRandomAsyncCore(null, null, start, end, replyWith);
 
     /// <summary>
@@ -113,7 +113,7 @@ public sealed class UaaSongApi
     /// <param name="start">Rating range of start</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
-    public Task<UaaSongRandomContent> GetRandomAsync(double start, AuaReplyWith replyWith)
+    public Task<UaaSongRandomContent> GetRandomAsync(double start, UaaReplyWith replyWith)
         => GetRandomAsyncCore(start, 12.0, null, null, replyWith);
 
     /// <summary>
@@ -122,7 +122,7 @@ public sealed class UaaSongApi
     /// <param name="start">Rating range of start (9+ => 9p, 10+ => 10p, etc.)</param>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
-    public Task<UaaSongRandomContent> GetRandomAsync(string start, AuaReplyWith replyWith)
+    public Task<UaaSongRandomContent> GetRandomAsync(string start, UaaReplyWith replyWith)
         => GetRandomAsyncCore(null, null, start, "12", replyWith);
 
     /// <summary>
@@ -130,7 +130,7 @@ public sealed class UaaSongApi
     /// </summary>
     /// <param name="replyWith">Additional information to reply with. Supports songinfo only.</param>
     /// <returns>Random song content</returns>
-    public Task<UaaSongRandomContent> GetRandomAsync(AuaReplyWith replyWith)
+    public Task<UaaSongRandomContent> GetRandomAsync(UaaReplyWith replyWith)
         => GetRandomAsyncCore(0.0, 12.0, null, null, replyWith);
 
     #endregion /song/random

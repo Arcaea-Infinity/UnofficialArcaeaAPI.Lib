@@ -37,15 +37,15 @@ public sealed class UaaDataApi
     #region /data/theory
 
     private async Task<UaaUserBestsContent> GetTheoryAsyncCore(string version,
-        int overflow, AuaReplyWith replyWith)
+        int overflow, UaaReplyWith replyWith)
     {
         var qb = new QueryBuilder()
             .Add("version", version)
             .Add("overflow", overflow.ToString());
 
-        if (replyWith.HasFlag(AuaReplyWith.Recent))
+        if (replyWith.HasFlag(UaaReplyWith.Recent))
             qb.Add("with_recent", "true");
-        if (replyWith.HasFlag(AuaReplyWith.SongInfo))
+        if (replyWith.HasFlag(UaaReplyWith.SongInfo))
             qb.Add("with_song_info", "true");
 
         var resp = await _client.GetAsync("data/theory" + qb.Build());
@@ -64,7 +64,7 @@ public sealed class UaaDataApi
     /// <param name="replyWith">Additional information to reply with. Supports songinfo and recent.</param>
     /// <returns></returns>
     public Task<UaaUserBestsContent> GetTheoryAsync(string version,
-        int overflow = 0, AuaReplyWith replyWith = AuaReplyWith.None)
+        int overflow = 0, UaaReplyWith replyWith = UaaReplyWith.None)
         => GetTheoryAsyncCore(version, overflow, replyWith);
 
     #endregion /data/theory

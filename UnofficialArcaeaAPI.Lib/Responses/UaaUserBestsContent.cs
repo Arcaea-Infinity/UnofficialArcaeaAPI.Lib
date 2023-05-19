@@ -14,7 +14,7 @@ public class UaaUserBestsContent
     public double Recent10Avg { get; set; }
 
     [JsonPropertyName("account_info")]
-    public AuaAccountInfo AccountInfo { get; set; }
+    public UaaAccountInfo AccountInfo { get; set; }
 
     [JsonPropertyName("best30_list")]
     public UaaRecord[] Best30List { get; set; }

@@ -4,7 +4,7 @@ namespace UnofficialArcaeaAPI.Lib.Models;
 
 #pragma warning disable CS8618
 
-public class AuaAccountInfo
+public class UaaAccountInfo
 {
     [JsonPropertyName("code")]
     public string Code { get; set; }

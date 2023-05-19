@@ -8,7 +8,7 @@ namespace UnofficialArcaeaAPI.Lib.Responses;
 public class UaaUserBestContent
 {
     [JsonPropertyName("account_info")]
-    public AuaAccountInfo AccountInfo { get; set; }
+    public UaaAccountInfo AccountInfo { get; set; }
 
     [JsonPropertyName("record")]
     public UaaRecord Record { get; set; }

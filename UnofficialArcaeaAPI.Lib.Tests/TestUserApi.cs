@@ -7,7 +7,7 @@ public class TestUserApi : TestBase
     [Fact]
     public async Task TestInfo()
     {
-        var userInfo = await DefaultClient.User.GetInfoAsync("ToasterKoishi", 1, AuaReplyWith.All);
+        var userInfo = await DefaultClient.User.GetInfoAsync("ToasterKoishi", 1, UaaReplyWith.All);
 
         Assert.True(userInfo.AccountInfo.Rating > 1200);
 

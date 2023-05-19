@@ -1,7 +1,7 @@
 ﻿namespace UnofficialArcaeaAPI.Lib.Models;
 
 [Flags]
-public enum AuaReplyWith
+public enum UaaReplyWith
 {
     None = 0,
     SongInfo = 1,
@@ -9,7 +9,7 @@ public enum AuaReplyWith
     All = SongInfo | Recent
 }
 
-public enum AuaSongQueryType
+public enum UaaSongQueryType
 {
     SongName,
     SongId,

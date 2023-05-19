@@ -7,7 +7,7 @@ public class TestAssetsApi : TestBase
     [Fact]
     public async Task TestAff()
     {
-        var affText = await DefaultClient.Assets.GetAffAsync("inkarusi", AuaSongQueryType.SongId);
+        var affText = await DefaultClient.Assets.GetAffAsync("inkarusi", UaaSongQueryType.SongId);
 
         Assert.Contains("arctap", affText);
     }
