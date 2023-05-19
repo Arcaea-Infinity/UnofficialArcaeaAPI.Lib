@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <Title>UnofficialArcaeaAPI.Lib</Title>
-        <PackageVersion>3.1.0</PackageVersion>
+        <PackageVersion>3.2.0</PackageVersion>
         <Authors>bsdayo</Authors>
         <Description>API wrapper for UnofficialArcaeaAPI.</Description>
         <PackageTags>arcaea;api</PackageTags>
