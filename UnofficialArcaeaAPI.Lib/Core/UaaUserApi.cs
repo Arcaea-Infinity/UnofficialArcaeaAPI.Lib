@@ -239,7 +239,7 @@ public sealed class UaaUserApi
             qb.Add("with_song_info", "true");
 
         var resp = await _client.GetAsync("user/bests/result" + qb.Build());
-        var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBestsResultContent>>(
+        var json = JsonSerializer.Deserialize<UaaResponse<UaaUserBestsResultContentInternal>>(
             await resp.Content.ReadAsStringAsync())!;
 
         if (json.Status is -31 or -32)
