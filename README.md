@@ -29,7 +29,7 @@ var client = new UaaClient(new UaaClientOptions
 var best30 = await client.User.GetBestsSessionAsync("Nagiha0798");
 
 // Query songinfo of #1f1e33
-var songinfo = await client.Song.GetInfoAsync("ifi", AuaSongQueryType.SongId);
+var songinfo = await client.Song.GetInfoAsync("ifi", UaaSongQueryType.SongId);
 
 Console.WriteLine(songinfo.SongId);
 Console.WriteLine(songinfo.Difficulties[2].NameEn);
